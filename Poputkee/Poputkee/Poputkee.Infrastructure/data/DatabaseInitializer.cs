@@ -1,8 +1,8 @@
-﻿public class UnitOfWork : IUnitOfWork, IDisposable
+﻿public class DatabaseInitializer : IUnitOfWork, IDisposable
 {
     private readonly AppDbContext _context;
 
-    public UnitOfWork(AppDbContext context)
+    public DatabaseInitializer(AppDbContext context)
     {
         _context = context;
         Users = new Repository<User>(context);

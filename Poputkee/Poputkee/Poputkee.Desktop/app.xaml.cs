@@ -16,7 +16,7 @@ public partial class App : Application
     private void ConfigureServices(IServiceCollection services)
     {
         services.AddDbContext<AppDbContext>();
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUnitOfWork, DatabaseInitializer>();
         services.AddSingleton<MainWindow>();
         services.AddTransient<MainViewModel>();
     }
