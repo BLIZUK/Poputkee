@@ -1,5 +1,6 @@
 ﻿// Poputkee.Desktop/App.xaml.cs
 using Microsoft.Extensions.DependencyInjection;
+using Poputkee.Poputkee.Core.Interfaces;
 using System.Windows;
 
 public partial class App : Application

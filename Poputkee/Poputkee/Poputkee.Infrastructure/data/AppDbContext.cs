@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Poputkee.Poputkee.Core.Models;
+
 
 public class AppDbContext : DbContext
 {

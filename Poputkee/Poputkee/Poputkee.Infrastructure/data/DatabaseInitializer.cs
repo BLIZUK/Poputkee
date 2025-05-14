@@ -1,4 +1,6 @@
-﻿public class DatabaseInitializer : IUnitOfWork, IDisposable
+﻿using Poputkee.Poputkee.Core.Interfaces;
+
+public class DatabaseInitializer : IUnitOfWork, IDisposable
 {
     private readonly AppDbContext _context;
 

@@ -1,7 +1,12 @@
-﻿public interface IUnitOfWork
+﻿using Poputkee.Poputkee.Core.Models;
+
+namespace Poputkee.Poputkee.Core.Interfaces
 {
-    IRepository<User> Users { get; }
-    IRepository<Trip> Trips { get; }
-    IRepository<Booking> Bookings { get; }
-    Task<int> CommitAsync();
+    public interface IUnitOfWork
+    {
+        IRepository<User> Users { get; }
+        IRepository<Trip> Trips { get; }
+        IRepository<Booking> Bookings { get; }
+        Task<int> CommitAsync();
+    }
 }
