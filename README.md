@@ -47,7 +47,7 @@
 ### Структурное дерево проекта
 ```
 Poputkee/  
-├── Poputkee.Core/                      # Ядро приложения
+├── Core/                      # Ядро приложения
 │   ├── Models/                         # Сущности БД
 │   │   ├── User.cs                     # Пользователь
 │   │   ├── Trip.cs                     # Поездка
@@ -60,7 +60,7 @@ Poputkee/
 │   └── Services/                       # Бизнес-логика
 │       └── TripService.cs              # Сервис для работы с поездками
 │
-├── Poputkee.Infrastructure/            # Работа с данными
+├──Infrastructure/            # Работа с данными
 │   ├── Data/
 │   │   ├── AppDbContext.cs             # Контекст БД
 │   │   └── DatabaseInitializer.cs      # Инициализатор БД (опционально)
@@ -70,7 +70,7 @@ Poputkee/
 │       ├── TripRepository.cs           # Репозиторий поездок
 │       └── UserRepository.cs           # Репозиторий пользователей
 │
-├── Poputkee.Desktop/                   # WPF-приложение
+├──Desktop/                   # WPF-приложение
 │   ├── Views/
 │   │   ├── MainWindow.xaml             # Главное окно
 │   │   ├── TripListView.xaml           # Список поездок (UserControl)
@@ -86,7 +86,7 @@ Poputkee/
 │   │
 │   └── App.xaml                        # Точка входа + DI
 │
-├── Poputkee.Tests/                     # Тесты (опционально)
+├──Tests/                     # Тесты (опционально)
 │   ├── UnitTests/
 │   │   └── TripServiceTests.cs
 │   └── IntegrationTests/
