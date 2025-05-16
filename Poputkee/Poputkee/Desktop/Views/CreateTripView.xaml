@@ -1,0 +1,15 @@
+﻿<UserControl>
+    <StackPanel Margin="10">
+        <TextBox Text="{Binding NewTrip.DriverName}" 
+                 PlaceholderText="Имя водителя"/>
+        <TextBox Text="{Binding NewTrip.FromCity}" 
+                 PlaceholderText="Откуда"/>
+        <TextBox Text="{Binding NewTrip.ToCity}" 
+                 PlaceholderText="Куда"/>
+        <DatePicker SelectedDate="{Binding NewTrip.DepartureTime}"/>
+        <TextBox Text="{Binding NewTrip.AvailableSeats}" 
+                 PlaceholderText="Количество мест"/>
+        <Button Content="Создать" 
+                Command="{Binding CreateTripCommand}"/>
+    </StackPanel>
+</UserControl>

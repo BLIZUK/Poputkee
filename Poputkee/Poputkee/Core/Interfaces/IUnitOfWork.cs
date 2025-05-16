@@ -1,6 +1,6 @@
-﻿using Poputkee.Poputkee.Core.Models;
+﻿using Poputkee.Core.Models;
 
-namespace Poputkee.Poputkee.Core.Interfaces
+namespace Poputkee.Core.Interfaces
 {
     public interface IUnitOfWork
     {

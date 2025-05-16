@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Poputkee.Poputkee.Core.Models;
+using Poputkee.Core.Models;
 
 
 public class AppDbContext : DbContext
@@ -27,7 +27,7 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Booking>()
             .HasOne(b => b.Passenger)
-            .WithMany(u => u.Booking)
+            .WithMany(u => u.Bookings)
             .HasForeignKey(b =>b.PassengerId);
     }
 }

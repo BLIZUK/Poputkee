@@ -27,22 +27,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Poputkee.Core\Interfaces\IUnitOfWork.cs">
+    <Compile Update="Core\Interfaces\IUnitOfWork.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Update="Poputkee.Desktop\ViewModels\MainViewModel.cs">
+    <Compile Update="Desktop\ViewModels\MainViewModel.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Update="Poputkee.Infrastructure\data\AppDbContext.cs">
+    <Compile Update="Infrastructure\data\AppDbContext.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Update="Poputkee.Core\Interfaces\IRepository.cs">
+    <Compile Update="Core\Interfaces\IRepository.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Update="Poputkee.Infrastructure\data\DatabaseInitializer.cs">
+    <Compile Update="Infrastructure\data\DatabaseInitializer.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Update="Poputkee.Infrastructure\Repositories\Repository.cs">
+    <Compile Update="Infrastructure\Repositories\Repository.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
   </ItemGroup>
