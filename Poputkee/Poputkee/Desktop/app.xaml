@@ -1,32 +1,17 @@
-﻿<!-- Poputkee.Desktop/Views/MainWindow.xaml -->
-<Window x:Class="Poputkee.Desktop.Views.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="clr-namespace:Poputkee.Desktop.ViewModels"
-        Title="Poputkee" Height="600" Width="800">
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+﻿<Application x:Class="Poputkee.Desktop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Исправленный путь -->
+    <Application.Resources>
+        <!-- Стиль для кнопок навигации -->
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="#F0F0F0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
 
-        <Button Content="Загрузить поездки" 
-                Command="{Binding LoadTripsCommand}" 
-                Margin="5" Width="120"/>
-
-        <ListView Grid.Row="1" ItemsSource="{Binding Trips}" SelectedItem="{Binding SelectedTrip}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Откуда" DisplayMemberBinding="{Binding FromCity}"/>
-                    <GridViewColumn Header="Куда" DisplayMemberBinding="{Binding ToCity}"/>
-                    <GridViewColumn Header="Время" DisplayMemberBinding="{Binding DepartureTime}"/>
-                    <GridViewColumn Header="Места" DisplayMemberBinding="{Binding AvailableSeats}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-
-        <Button Grid.Row="1" Content="Забронировать" 
-                Command="{Binding BookTripCommand}"
-                VerticalAlignment="Bottom" Margin="5"/>
-    </Grid>
-</Window>
+        <!-- Остальные стили -->
+    </Application.Resources>
+</Application>

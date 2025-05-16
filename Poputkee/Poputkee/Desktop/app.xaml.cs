@@ -1,31 +1,39 @@
-﻿// Poputkee.Desktop/App.xaml.cs
-using Microsoft.Extensions.DependencyInjection;
-using Poputkee.Core.Interfaces;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Poputkee.Desktop.ViewModels;
 using Poputkee.Desktop.Views;
 using System.Windows;
 
-public partial class App : Application
+namespace Poputkee.Desktop
 {
-    private IServiceProvider _serviceProvider;
-
-    public App()
+    public partial class App : Application
     {
-        var services = new ServiceCollection();
-        ConfigureServices(services);
-        _serviceProvider = services.BuildServiceProvider();
-    }
+        private readonly ServiceProvider _serviceProvider;
 
-    private void ConfigureServices(IServiceCollection services)
-    {
-        services.AddDbContext<AppDbContext>();
-        services.AddScoped<IUnitOfWork, DatabaseInitializer>();
-        services.AddSingleton<MainWindow>();
-        services.AddTransient<MainViewModel>();
-    }
+        public App()
+        {
+            // Конфигурация сервисов
+            var services = new ServiceCollection();
+            ConfigureServices(services);
+            _serviceProvider = services.BuildServiceProvider();
+        }
 
-    protected override void OnStartup(StartupEventArgs e)
-    {
-        var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
-        mainWindow.Show();
+        private void ConfigureServices(IServiceCollection services)
+        {
+            // Регистрация ViewModels
+            services.AddTransient<MainWindowViewModel>();
+
+            // Регистрация главного окна
+            services.AddSingleton<MainWindow>();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            // Создаем главное окно через DI-контейнер
+            var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+            mainWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
+            mainWindow.Show();
+        }
     }
 }

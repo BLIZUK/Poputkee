@@ -30,7 +30,7 @@
     <Compile Update="Core\Interfaces\IUnitOfWork.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
-    <Compile Update="Desktop\ViewModels\MainViewModel.cs">
+    <Compile Update="Desktop\ViewModels\MainWindowViewModel.cs">
       <Generator>MSBuild:Compile</Generator>
     </Compile>
     <Compile Update="Infrastructure\data\AppDbContext.cs">

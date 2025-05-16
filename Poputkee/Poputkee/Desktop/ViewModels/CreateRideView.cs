@@ -3,12 +3,12 @@ using Poputkee.Core.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-public class TripListViewModel : INotifyPropertyChanged
+public class CreateRideView : INotifyPropertyChanged
 {
     private readonly IUnitOfWork _unitOfWork;
     public ObservableCollection<Trip> Trips { get; } = new ObservableCollection<Trip>();
 
-    public TripListViewModel(IUnitOfWork unitOfWork)
+    public CreateRideView(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         LoadTrips();
