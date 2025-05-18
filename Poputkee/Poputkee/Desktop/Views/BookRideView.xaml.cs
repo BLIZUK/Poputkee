@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using Poputkee.Desktop.ViewModels;
+using System;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Poputkee.Desktop.Views
 {
     /// <summary>
     /// Логика взаимодействия для BookRideView.xaml
     /// </summary>
-    public partial class BookRideView : Window
+    public partial class BookRideView : UserControl
     {
         public BookRideView()
         {
             InitializeComponent();
+            DataContext = new BookRideViewModel();
         }
     }
 }
