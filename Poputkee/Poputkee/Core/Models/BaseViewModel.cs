@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Poputkee.Core.Models;
-
 public class BaseViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
@@ -12,12 +10,9 @@ public class BaseViewModel : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    // Метод SetField для автоматизации обновления свойств
     protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
     {
-        if (EqualityComparer<T>.Default.Equals(field, value))
-            return false;
-
+        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
         field = value;
         OnPropertyChanged(propertyName);
         return true;

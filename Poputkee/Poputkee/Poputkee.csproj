@@ -9,42 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Tests\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Core\Interfaces\IUnitOfWork.cs">
-      <Generator>MSBuild:Compile</Generator>
-    </Compile>
-    <Compile Update="Desktop\ViewModels\MainWindowViewModel.cs">
-      <Generator>MSBuild:Compile</Generator>
-    </Compile>
-    <Compile Update="Infrastructure\data\AppDbContext.cs">
-      <Generator>MSBuild:Compile</Generator>
-    </Compile>
-    <Compile Update="Core\Interfaces\IRepository.cs">
-      <Generator>MSBuild:Compile</Generator>
-    </Compile>
-    <Compile Update="Infrastructure\data\DatabaseInitializer.cs">
-      <Generator>MSBuild:Compile</Generator>
-    </Compile>
-    <Compile Update="Infrastructure\Repositories\Repository.cs">
-      <Generator>MSBuild:Compile</Generator>
-    </Compile>
+    <Page Include="App.xaml" />
   </ItemGroup>
 
 </Project>

@@ -1,18 +1,12 @@
-﻿using System.Windows.Input;
-using Poputkee.Core.Commands;
-using Poputkee.Desktop.Views;
-using Poputkee.Core.Models;
-
-namespace Poputkee.Desktop.ViewModels;
+﻿using Poputkee.Views;
+using System.Windows.Input;
 
 public class MainWindowViewModel : BaseViewModel
 {
-    // Текущая отображаемая страница
     private object _currentView;
     public object CurrentView
     {
         get => _currentView;
-        // Используем SetField из BaseViewModel
         set => SetField(ref _currentView, value);
     }
 
