@@ -28,4 +28,9 @@ public partial class MainWindow : Window
     {
         contentControl.Content = new BookRideView();
     }
+
+    private void CreateRide_Click(object sender, RoutedEventArgs e)
+    {
+        contentControl.Content = new CreateRideView();
+    }
 }

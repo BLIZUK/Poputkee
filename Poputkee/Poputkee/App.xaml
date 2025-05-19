@@ -4,6 +4,8 @@
              StartupUri="Desktop/Views/MainWindow.xaml">
 
     <Application.Resources>
+        
+        
         <!-- Стиль для кнопок навигации -->
         <Style x:Key="NavButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="5"/>
@@ -13,6 +15,7 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
 
+        
         <!-- Стиль для полей ввода -->
         <Style x:Key="InputFieldStyle" TargetType="TextBox">
             <Setter Property="Margin" Value="0,5"/>
@@ -22,6 +25,7 @@
             <Setter Property="BorderBrush" Value="#CCCCCC"/>
         </Style>
 
+        
         <!-- Стиль для основных кнопок -->
         <Style x:Key="PrimaryButtonStyle" TargetType="Button">
             <Setter Property="Padding" Value="20,10"/>
@@ -31,6 +35,22 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
         </Style>
+
+        
+        <!-- Стиль для DatePicker -->
+        <Style x:Key="DatePickerStyle" TargetType="DatePicker">
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+
+        <Style x:Key="ListViewSeparatorStyle" TargetType="Separator">
+            <Setter Property="Background" Value="#E0E0E0"/>
+            <Setter Property="Margin" Value="0,5"/>
+        </Style>
+
     </Application.Resources>
     
 </Application>

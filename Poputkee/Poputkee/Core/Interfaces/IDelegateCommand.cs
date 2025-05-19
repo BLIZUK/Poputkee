@@ -7,14 +7,14 @@ using System.Windows.Input;
 
 namespace Poputkee.Core.Interfaces;
 
-    public class DelegateCommand : ICommand
+    public class IDelegateCommand : ICommand
     {
         private readonly Action _execute;
         private readonly Func<bool> _canExecute;
 
-        public DelegateCommand(Action execute) : this(execute, null) { }
+        public IDelegateCommand(Action execute) : this(execute, null) { }
 
-        public DelegateCommand(Action execute, Func<bool> canExecute)
+        public IDelegateCommand(Action execute, Func<bool> canExecute)
         {
             if (execute == null)
                 throw new ArgumentNullException(nameof(execute));

@@ -20,10 +20,12 @@
             <UniformGrid Rows="1" Columns="4">
                 <Button x:Name="BookRide" Content="Бронировать" 
                         Command="{Binding ShowBookRideCommand}"
-                        Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD" Click="BookRide_Click"/>
+                        Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD" 
+                        Click="BookRide_Click"/>
                 <Button Content="Создать поездку" 
                         Command="{Binding ShowCreateRideCommand}"
-                        Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>
+                        Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"
+                        Click="CreateRide_Click"/>
                 <Button Content="Архив" 
                         Command="{Binding ShowArchiveCommand}"
                         Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>
