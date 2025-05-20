@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Poputkee.Desktop.ViewModels.MainMenu;
 using Poputkee.Desktop.Views.MainMenu;
-using Poputkee.Infrastructure.Data;
+//using Poputkee.Infrastructure.Data;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,7 +21,7 @@ public partial class App : Application
     {
 
         var services = new ServiceCollection();
-        ConfigureServices(services);
+        //ConfigureServices(services);
         _serviceProvider = services.BuildServiceProvider();
 
         // Конструктор вызывается при запуске приложения
@@ -32,19 +32,19 @@ public partial class App : Application
     }
 
 
-    private static void ConfigureServices(IServiceCollection services)
-    {
-        // Настройка контекста БД
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql("Host=localhost;Database=poputkee;Username=postgres;Password=1234"));
-        services.AddScoped<IUserService, UserService>();
-        // Регистрация Unit of Work
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+    //private static void ConfigureServices(IServiceCollection services)
+    //{
+    //    // Настройка контекста БД
+    //    services.AddDbContext<AppDbContext>(options =>
+    //        options.UseNpgsql("Host=localhost;Database=poputkee;Username=postgres;Password=1234"));
+    //    services.AddScoped<IUserService, UserService>();
+    //    // Регистрация Unit of Work
+    //    services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        // Регистрация ViewModels и окон
-        //services.AddTransient<MainWindowViewModel>();
-        services.AddSingleton<MainWindow>();
-    }
+    //    // Регистрация ViewModels и окон
+    //    //services.AddTransient<MainWindowViewModel>();
+    //    services.AddSingleton<MainWindow>();
+    //}
 
 
     protected override void OnStartup(StartupEventArgs e)

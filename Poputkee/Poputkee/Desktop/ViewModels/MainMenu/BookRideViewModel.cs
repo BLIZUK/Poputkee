@@ -7,28 +7,39 @@ using System.Windows.Controls;
 
 
 namespace Poputkee.Desktop.ViewModels.MainMenu
-    {
+{
     public class BookRideViewModel : BaseViewModel
     {
-        //  Поля со свойства с авто-обновлением
-        private DateTime _selectedDate = DateTime.Now;
-        private string _From = "Откуда";
-        private string _To = "Куда то))";
-
-        // Кнопка/Команда поиска поездок
+        //  Поля
+        // Команда поиска поездок
         public ICommand SearchRidesCommand { get; }
+        //  Свойства с авто-обновлением
+        private string _from = "Откуда";
+        private string _to = "Куда то))";
+        private DateTime _selectedDate = DateTime.Now;
+        private int _neededSeats;
 
+
+        // Конструкторк
         public BookRideViewModel()
         {
             Logger.LogDebug("--->>> Конструктор BookRideViewModel вызван");
             SearchRidesCommand = new RelayCommand(SearchRides);
         }
 
-        private void SearchRides(object parameter)
+        
+        public string From
         {
-            Debug.WriteLine("--->>>! date:", SelectedDate);
+            get => _from;
+            set => SetProperty(ref _from, value);
         }
 
+
+        public string To
+        {
+            get => _to;
+            set => SetProperty(ref _to, value);
+        }
 
         public DateTime SelectedDate
         {
@@ -36,10 +47,18 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
             set => SetProperty(ref _selectedDate, value);
         }
 
-        //public string From
-        //    {
-        //   //get => TextBox.FromCityTextBox
-        //    }
 
+        public int NeededSeats
+        {
+            get => _neededSeats;
+            set => SetProperty(ref _neededSeats, value);
+        }
+
+
+        // Обработка кнопки
+        private void SearchRides(object parameter)
+        {
+            Debug.WriteLine("--->>>! date:", SelectedDate);
+        }
     }
-    }
+}

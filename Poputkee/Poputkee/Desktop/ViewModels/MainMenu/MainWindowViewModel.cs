@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Poputkee.Core.Services;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -29,12 +30,19 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
 
             ShowBookRideCommand = new RelayCommand(_ => CurrentView = new BookRideViewModel());
             ShowCreateRideCommand = new RelayCommand(_ => CurrentView = new CreateRideViewModel());
+            // Используем мок-сервис для тестов
+            ITripService tripService = new TripService();
+
+            ShowArchiveCommand = new RelayCommand(_ =>
+                CurrentView = new ArchiveViewModel(tripService));
         }
 
 
         // Команды для навигации
         public ICommand ShowBookRideCommand { get; }
         public ICommand ShowCreateRideCommand { get; }
+
+        public ICommand ShowArchiveCommand { get; }
 
 
         //// INotifyPropertyChanged реализация
