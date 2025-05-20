@@ -1,9 +1,9 @@
 ﻿<Application x:Class="Poputkee.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:Poputkee.Desktop.ViewModels"
-             xmlns:views="clr-namespace:Poputkee.Desktop.Views"
-             StartupUri="Desktop/Views/MainWindow.xaml">
+             xmlns:vm="clr-namespace:Poputkee.Desktop.ViewModels.MainMenu"
+             xmlns:views="clr-namespace:Poputkee.Desktop.Views.MainMenu"
+             StartupUri="Desktop/Views/MainMenu/MainWindow.xaml">
 
     <Application.Resources>
 
@@ -12,7 +12,7 @@
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:CreateRideViewModel}">
-            <views:BookRideView/>
+            <views:CreateRideView/>
         </DataTemplate>
 
 

@@ -1,11 +1,13 @@
-﻿using Poputkee.Desktop.ViewModels;
+﻿/*
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 
-namespace Poputkee.Desktop.ViewModels;
+namespace Poputkee.Desktop.ViewModels.MainMenu;
 public class BookRideViewModel : INotifyPropertyChanged
 {
-    private DateTime _selectedDate;
+    private DateTime _selectedDate = DateTime.Now;
+    public DateTime SelectedDate;
 
     // Конструктор
     public BookRideViewModel()
@@ -37,4 +39,12 @@ public class BookRideViewModel : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
     protected virtual void OnPropertyChanged(string propertyName)
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+
+    private void SearchRides()
+    {
+        // Логика поиска...
+        MessageBox.Show($"Ищем поездки на {SelectedDate:dd.MM.yyyy}");
+    }
 }
+ */

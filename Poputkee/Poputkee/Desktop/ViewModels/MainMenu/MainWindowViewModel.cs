@@ -1,12 +1,13 @@
-﻿using Poputkee.Desktop.ViewModels;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Input;
 
-namespace Poputkee.Desktop.ViewModels
+namespace Poputkee.Desktop.ViewModels.MainMenu
 {
 
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : BaseViewModel
     {
+
         private object _currentView;
         public object CurrentView
         {
@@ -21,6 +22,11 @@ namespace Poputkee.Desktop.ViewModels
 
         public MainWindowViewModel()
         {
+            //// Инициализация: сразу показываем BookRideView
+            //CurrentView = new BookRideViewModel();
+
+            //Debug.WriteLine("--->>> Запуск основного окна");
+
             ShowBookRideCommand = new RelayCommand(_ => CurrentView = new BookRideViewModel());
             ShowCreateRideCommand = new RelayCommand(_ => CurrentView = new CreateRideViewModel());
         }
@@ -31,9 +37,9 @@ namespace Poputkee.Desktop.ViewModels
         public ICommand ShowCreateRideCommand { get; }
 
 
-        // INotifyPropertyChanged реализация
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //// INotifyPropertyChanged реализация
+        //public event PropertyChangedEventHandler? PropertyChanged;
+        //protected virtual void OnPropertyChanged(string propertyName)
+        //    => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Poputkee.Desktop.ViewModels;
-using Poputkee.Desktop.Views;
+using Poputkee.Desktop.ViewModels.MainMenu;
+using Poputkee.Desktop.Views.MainMenu;
 using Poputkee.Infrastructure.Data;
 using System.Diagnostics;
 using System.Windows;
@@ -32,7 +32,7 @@ public partial class App : Application
     }
 
 
-    private void ConfigureServices(IServiceCollection services)
+    private static void ConfigureServices(IServiceCollection services)
     {
         // Настройка контекста БД
         services.AddDbContext<AppDbContext>(options =>
@@ -51,7 +51,7 @@ public partial class App : Application
     {
         base.OnStartup(e);
         Debug.WriteLine("\n<-------------------------------------------->\n" + 
-            "App.xaml загружен, стартовое окно открывается" +
+            "                 App.xaml загружен" +
             "\n<-------------------------------------------->\n");
 
     }
