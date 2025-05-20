@@ -5,6 +5,7 @@ using Poputkee.Desktop.Views;
 using Poputkee.Infrastructure.Data;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Poputkee;
 
@@ -27,6 +28,7 @@ public partial class App : Application
         Debug.WriteLine("\n<-------------------------------------------->\n" +
             "             Конструктор App вызван" +
             "\n<-------------------------------------------->\n");
+        //contentControl.Content = new BookRideView();
     }
 
 
@@ -40,7 +42,7 @@ public partial class App : Application
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         // Регистрация ViewModels и окон
-        services.AddTransient<MainViewModel>();
+        //services.AddTransient<MainWindowViewModel>();
         services.AddSingleton<MainWindow>();
     }
 

@@ -1,10 +1,13 @@
 ﻿<Window x:Name="Main" x:Class="Poputkee.Desktop.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:vm="clr-namespace:Poputkee.Desktop.ViewModels"
         Title="Poputkee" Height="600" Width="800" Background="#FFDBF1EC">
+
     <Grid>
         <!-- Объявление страниц |start|-->
-        <ContentControl x:Name="contentControl" />
+        <ContentControl x:Name="contentControl" Content="{Binding CurrentView}"/>
         <!-- Объявление страниц | end |-->
 
         <!-- Основной контент |start|-->
@@ -19,13 +22,13 @@
             </Border.Effect>
             <UniformGrid Rows="1" Columns="4">
                 <Button x:Name="BookRide" Content="Бронировать" 
-                        Command="{Binding ShowBookRideCommand}"
-                        Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD" 
-                        Click="BookRide_Click"/>
-                <Button Content="Создать поездку" 
+                Command="{Binding ShowBookRideCommand}"
+                Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>
+
+                <Button x:Name="CreatTrip" Content="Создать поездку" 
                         Command="{Binding ShowCreateRideCommand}"
-                        Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"
-                        Click="CreateRide_Click"/>
+                        Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>
+
                 <Button Content="Архив" 
                         Command="{Binding ShowArchiveCommand}"
                         Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>

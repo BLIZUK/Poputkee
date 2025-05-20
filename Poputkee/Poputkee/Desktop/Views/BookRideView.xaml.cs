@@ -12,7 +12,6 @@ namespace Poputkee.Desktop.Views
         public BookRideView()
         {
             InitializeComponent();
-            DataContext = new BookRideViewModel();
         }
     }
 }

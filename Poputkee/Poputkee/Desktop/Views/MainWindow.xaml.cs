@@ -20,14 +20,14 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        //DataContext = new MainViewModel();
-        contentControl.Content = new BookRideView();
+        DataContext = new MainWindowViewModel();  // Устанавливаем контекст данных
     }
 
-    private void BookRide_Click(object sender, RoutedEventArgs e)
-    {
-        contentControl.Content = new BookRideView();
-    }
+    //private void BookRide_Click(object sender, RoutedEventArgs e)
+    //{
+    //    contentControl.Content = new BookRideView();
+    // Click="BookRide_Click"
+    //}
 
     private void CreateRide_Click(object sender, RoutedEventArgs e)
     {
