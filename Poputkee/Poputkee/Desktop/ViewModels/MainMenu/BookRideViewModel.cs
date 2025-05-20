@@ -13,7 +13,7 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         //  Поля со свойства с авто-обновлением
         private DateTime _selectedDate = DateTime.Now;
         private string _From = "Откуда";
-        private string _To = "Куда";
+        private string _To = "Куда то))";
 
         // Кнопка/Команда поиска поездок
         public ICommand SearchRidesCommand { get; }
