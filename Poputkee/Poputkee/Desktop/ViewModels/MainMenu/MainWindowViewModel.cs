@@ -1,53 +1,30 @@
-﻿using Poputkee.Core.Services;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using Poputkee.Desktop.ViewModels;
+using Poputkee.Core.Services;
+using Poputkee.Desktop.ViewModels.MainMenu;
 using System.Windows.Input;
 
-namespace Poputkee.Desktop.ViewModels.MainMenu
+public class MainWindowViewModel : BaseViewModel
 {
+    private readonly ITripService _tripService;
 
-    public class MainWindowViewModel : BaseViewModel
+    public MainWindowViewModel(ITripService MocktripService)
     {
+        _tripService = MocktripService;
 
-        private object _currentView;
-        public object CurrentView
-        {
-            get => _currentView;
-            set
-            {
-                _currentView = value;
-                OnPropertyChanged(nameof(CurrentView));
-            }
-        }
+        // Инициализация команд
+        ShowBookRideCommand = new RelayCommand(_ => CurrentView = new BookRideViewModel());
+        ShowCreateRideCommand = new RelayCommand(_ => CurrentView = new CreateRideViewModel());
+        ShowArchiveCommand = new RelayCommand(_ => CurrentView = new ArchiveViewModel(_tripService));
+    }
 
+    public ICommand ShowBookRideCommand { get; }
+    public ICommand ShowCreateRideCommand { get; }
+    public ICommand ShowArchiveCommand { get; }
 
-        public MainWindowViewModel()
-        {
-            //// Инициализация: сразу показываем BookRideView
-            //CurrentView = new BookRideViewModel();
-
-            //Debug.WriteLine("--->>> Запуск основного окна");
-
-            ShowBookRideCommand = new RelayCommand(_ => CurrentView = new BookRideViewModel());
-            ShowCreateRideCommand = new RelayCommand(_ => CurrentView = new CreateRideViewModel());
-            // Используем мок-сервис для тестов
-            ITripService tripService = new TripService();
-
-            ShowArchiveCommand = new RelayCommand(_ =>
-                CurrentView = new ArchiveViewModel(tripService));
-        }
-
-
-        // Команды для навигации
-        public ICommand ShowBookRideCommand { get; }
-        public ICommand ShowCreateRideCommand { get; }
-
-        public ICommand ShowArchiveCommand { get; }
-
-
-        //// INotifyPropertyChanged реализация
-        //public event PropertyChangedEventHandler? PropertyChanged;
-        //protected virtual void OnPropertyChanged(string propertyName)
-        //    => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    private BaseViewModel _currentView;
+    public BaseViewModel CurrentView
+    {
+        get => _currentView;
+        set => SetProperty(ref _currentView, value);
     }
 }

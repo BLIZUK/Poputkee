@@ -1,12 +1,13 @@
-﻿using Poputkee.Core.Models;
-using System;
+﻿// Poputkee.Core/Services/ITripService.cs
+using Poputkee.Core.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-
+namespace Poputkee.Core.Services
+{
     public interface ITripService
     {
         List<Trip> GetCompletedTrips();
- }
+
+        //List<Trip> PushCompletedTrips();
+    }
+}

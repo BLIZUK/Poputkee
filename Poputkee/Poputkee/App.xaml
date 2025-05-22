@@ -4,6 +4,8 @@
              xmlns:vm="clr-namespace:Poputkee.Desktop.ViewModels.MainMenu"
              xmlns:views="clr-namespace:Poputkee.Desktop.Views.MainMenu"
              StartupUri="Desktop/Views/MainMenu/MainWindow.xaml">
+    
+    
 
     <Application.Resources>
 

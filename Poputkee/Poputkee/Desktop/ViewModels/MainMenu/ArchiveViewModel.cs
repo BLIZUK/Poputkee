@@ -1,4 +1,6 @@
 ﻿using Poputkee.Core.Models;
+using Poputkee.Core.Services;
+using Poputkee.Core.Interfaces;
 using Poputkee.Desktop.ViewModels;
 using System.Collections.ObjectModel;
 

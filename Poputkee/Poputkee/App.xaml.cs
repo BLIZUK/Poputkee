@@ -6,54 +6,64 @@ using Poputkee.Desktop.Views.MainMenu;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using Poputkee.Core.Services;
 
-namespace Poputkee;
 
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
-public partial class App : Application
+namespace Poputkee
 {
-
-    private readonly ServiceProvider _serviceProvider;
-
-    public App()
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : Application
     {
 
-        var services = new ServiceCollection();
-        //ConfigureServices(services);
-        _serviceProvider = services.BuildServiceProvider();
-
-        // Конструктор вызывается при запуске приложения
-        Debug.WriteLine("\n<-------------------------------------------->\n" +
-            "             Конструктор App вызван" +
-            "\n<-------------------------------------------->\n");
-        //contentControl.Content = new BookRideView();
-    }
+        // private readonly ServiceProvider _serviceProvider;
+        private IServiceProvider _serviceProvider;
 
 
-    //private static void ConfigureServices(IServiceCollection services)
-    //{
-    //    // Настройка контекста БД
-    //    services.AddDbContext<AppDbContext>(options =>
-    //        options.UseNpgsql("Host=localhost;Database=poputkee;Username=postgres;Password=1234"));
-    //    services.AddScoped<IUserService, UserService>();
-    //    // Регистрация Unit of Work
-    //    services.AddScoped<IUnitOfWork, UnitOfWork>();
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
 
-    //    // Регистрация ViewModels и окон
-    //    //services.AddTransient<MainWindowViewModel>();
-    //    services.AddSingleton<MainWindow>();
-    //}
+            var services = new ServiceCollection();
+
+            //var viewModel = _serviceProvider.GetRequiredService<MainWindowViewModel>();
+
+            //--------------------------------------------------------------------------->
+            //services.AddSingleton<ITripService, TripService>();
+            // Используем мок-сервис вместо реального TripService
+            services.AddSingleton<ITripService, MockTripService>(); // <- Здесь изменение
+                                                                    //
+                                                                    //--------------------------------------------------------------------------->
+
+            services.AddTransient<MainWindowViewModel>();
+            services.AddTransient<BookRideViewModel>();
+            services.AddTransient<CreateRideViewModel>();
+            services.AddTransient<ArchiveViewModel>();
+
+            _serviceProvider = services.BuildServiceProvider();
+
+            MainWindow = new MainWindow
+            {
+                DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>()
+            };
+            //MainWindow.Show();
+
+        }
 
 
-    protected override void OnStartup(StartupEventArgs e)
-    {
-        base.OnStartup(e);
-        Debug.WriteLine("\n<-------------------------------------------->\n" + 
-            "                 App.xaml загружен" +
-            "\n<-------------------------------------------->\n");
+        //public App()
+        //{
 
+        //    var services = new ServiceCollection();
+        //    //ConfigureServices(services);
+        //    //_serviceProvider = services.BuildServiceProvider();
+
+        //    // Конструктор вызывается при запуске приложения
+        //    Debug.WriteLine("\n<-------------------------------------------->\n" +
+        //        "             Конструктор App вызван" +
+        //        "\n<-------------------------------------------->\n");
+        //}
     }
 }
 
