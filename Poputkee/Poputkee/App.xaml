@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:Poputkee.Desktop.ViewModels.MainMenu"
              xmlns:views="clr-namespace:Poputkee.Desktop.Views.MainMenu"
+             xmlns:local="clr-namespace:Poputkee.Core.Services"
              StartupUri="Desktop/Views/MainMenu/MainWindow.xaml">
     
     
@@ -75,6 +76,8 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Margin" Value="0,0,0,10"/>
         </Style>
+
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
 
     </Application.Resources>
     

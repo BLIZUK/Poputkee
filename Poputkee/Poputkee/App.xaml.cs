@@ -2,11 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Poputkee.Desktop.ViewModels.MainMenu;
 using Poputkee.Desktop.Views.MainMenu;
+using Poputkee.Core.Services;
 //using Poputkee.Infrastructure.Data;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using Poputkee.Core.Services;
+using System.Net.NetworkInformation;
 
 
 namespace Poputkee
@@ -27,14 +29,12 @@ namespace Poputkee
 
             var services = new ServiceCollection();
 
-            //var viewModel = _serviceProvider.GetRequiredService<MainWindowViewModel>();
-
             //--------------------------------------------------------------------------->
             //services.AddSingleton<ITripService, TripService>();
             // Используем мок-сервис вместо реального TripService
             services.AddSingleton<ITripService, MockTripService>(); // <- Здесь изменение
-                                                                    //
-                                                                    //--------------------------------------------------------------------------->
+            //
+            //--------------------------------------------------------------------------->
 
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<BookRideViewModel>();
@@ -47,6 +47,7 @@ namespace Poputkee
             {
                 DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>()
             };
+
             //MainWindow.Show();
 
         }

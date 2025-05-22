@@ -1,6 +1,6 @@
-﻿// Poputkee.Core/Services/ITripService.cs
-using Poputkee.Core.Models;
+﻿using Poputkee.Core.Models;
 using System.Collections.Generic;
+
 
 namespace Poputkee.Core.Services
 {
@@ -9,5 +9,7 @@ namespace Poputkee.Core.Services
         List<Trip> GetCompletedTrips();
 
         //List<Trip> PushCompletedTrips();
+
+        void UpdateTrip(Trip trip);
     }
 }

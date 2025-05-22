@@ -27,4 +27,9 @@ public class Trip
     public string DriverName { get; set; }
     public bool IsCompleted { get; set; } // Флаг завершенной поездки
 
+
+    // Новые свойства
+    public int? Rating { get; set; }
+    public string Comment { get; set; }
+
 }

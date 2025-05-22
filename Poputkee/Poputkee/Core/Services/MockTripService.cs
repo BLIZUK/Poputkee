@@ -10,6 +10,9 @@ namespace Poputkee.Core.Services
 {
     public class MockTripService : ITripService
     {
+
+        private List<Trip> _trips = new List<Trip>();
+
         // Пример реализации с мок-данными
         public List<Trip> GetCompletedTrips()
         {
@@ -34,6 +37,15 @@ namespace Poputkee.Core.Services
                     IsCompleted = true
                 }
             };
+        }
+        public void UpdateTrip(Trip trip)
+        {
+            var existing = _trips.FirstOrDefault(t => t.DriverName == trip.DriverName);
+            if (existing != null)
+            {
+                existing.Rating = trip.Rating;
+                existing.Comment = trip.Comment;
+            }
         }
     }
 }
