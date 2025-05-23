@@ -1,68 +1,132 @@
-﻿using Poputkee.Core.Models;
+﻿// System namespaces
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Windows;
 using System.Windows.Input;
+
+// Application components
+using Poputkee.Core.Models;
+using Poputkee.Desktop.ViewModels.MainMenu;
 
 namespace Poputkee.Desktop.ViewModels.MainMenu
 {
+    /// <summary>
+    /// ViewModel для создания новой поездки
+    /// </summary>
     public class CreateRideViewModel : BaseViewModel
     {
-
-        // Конструктор
-        public CreateRideViewModel()
-        {
-            Debug.WriteLine("--->>> Запуск CreateRideViewModel конструктора");
-            CreateRideCommand = new RelayCommand(ExecuteSearch);
-        }
-
-
-        // Кнопка/Команда создания поездки
-        public ICommand CreateRideCommand { get; }
-
-
-        private void ExecuteSearch(object parameter)
-        {
-            // Логика поиска поездок
-            Debug.WriteLine("---->>>! Кнопка создания поездки:");
-            Debug.WriteLine($"--------------------------------------\n" +
-                $"FromCity = {FromCity} " +
-                $"\nToCity = {ToCity}" +
-                $"\nDepartureTime = {DepartureTime}" +
-                $"\nAvailableSeats = {AvailableSeats}" +
-                $"\n--------------------------------------\n");
-        }
-
-
-        // Свойства для привязки
+        #region Fields
 
         private string _fromCity;
+        private string _toCity;
+        private string _departureTime;
+        private int _availableSeats;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Конструктор инициализирующий команды и логирующий создание экземпляра
+        /// </summary>
+        public CreateRideViewModel()
+        {
+            Debug.WriteLine("--->>> Инициализация CreateRideViewModel");
+            InitializeCommands();
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Город отправления
+        /// </summary>
         public string FromCity
         {
             get => _fromCity;
             set => SetProperty(ref _fromCity, value);
         }
 
-        private string _toCity;
+        /// <summary>
+        /// Город назначения
+        /// </summary>
         public string ToCity
         {
             get => _toCity;
             set => SetProperty(ref _toCity, value);
         }
 
-        private string _departureTime;
+        /// <summary>
+        /// Время отправления (строковое представление)
+        /// </summary>
+        /// <remarks>
+        /// TODO: Рассмотреть возможность использования типа DateTime
+        /// </remarks>
         public string DepartureTime
         {
             get => _departureTime;
             set => SetProperty(ref _departureTime, value);
         }
 
-        private int _availableSeats;
+        /// <summary>
+        /// Количество доступных мест
+        /// </summary>
         public int AvailableSeats
         {
             get => _availableSeats;
             set => SetProperty(ref _availableSeats, value);
         }
+
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Команда для создания новой поездки
+        /// </summary>
+        public ICommand CreateRideCommand { get; private set; }
+
+        #endregion
+
+        #region Command Implementation
+
+        /// <summary>
+        /// Инициализация команд
+        /// </summary>
+        private void InitializeCommands()
+        {
+            CreateRideCommand = new RelayCommand(ExecuteCreateRide);
+        }
+
+        /// <summary>
+        /// Обработчик создания поездки
+        /// </summary>
+        private void ExecuteCreateRide(object parameter)
+        {
+            Debug.WriteLine("---->>> Запрос на создание поездки:");
+            LogRideDetails();
+
+            // TODO: Добавить логику сохранения поездки
+        }
+
+        #endregion
+
+        #region Helper Methods
+
+        /// <summary>
+        /// Логирование деталей поездки
+        /// </summary>
+        private void LogRideDetails()
+        {
+            Debug.WriteLine(
+                $"--------------------------------------\n" +
+                $"From: {FromCity}\n" +
+                $"To: {ToCity}\n" +
+                $"Time: {DepartureTime}\n" +
+                $"Seats: {AvailableSeats}\n" +
+                $"--------------------------------------");
+        }
+
+        #endregion
     }
 }

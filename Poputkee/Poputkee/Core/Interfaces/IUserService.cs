@@ -1,13 +1,33 @@
-﻿// Poputkee.Core/Services/IUserService.cs
-using Poputkee.Core.Models;
+﻿using Poputkee.Core.Models;
 
-public interface IUserService
-{
-    User CurrentUser { get; set; }
-}
+/*
+|
+| # Дополнительные рекомендации:
+|  | 1. Добавить методы аутентификации/выхода
+|  | 2. Реализовать проверку прав доступа
+|  | 3. Добавить события изменения состояния пользователя
+|  | 4. Реализовать механизм автоматического обновления данных
+|
+*/
 
-// Poputkee.Infrastructure/Services/UserService.cs
-public class UserService : IUserService
+namespace Poputkee.Core.Services
 {
-    public User CurrentUser { get; set; }
+    /// <summary>
+    /// Интерфейс сервиса для работы с текущим пользователем
+    /// </summary>
+    public interface IUserService
+    {
+        #region User Management
+
+        /// <summary>
+        /// Текущий авторизованный пользователь системы
+        /// </summary>
+        /// <remarks>
+        /// Возвращает null если пользователь не аутентифицирован
+        /// </remarks>
+        /// <exception cref="ArgumentNullException">При попытке установить null</exception>
+        User CurrentUser { get; set; }
+
+        #endregion
+    }
 }

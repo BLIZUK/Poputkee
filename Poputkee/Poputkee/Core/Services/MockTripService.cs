@@ -3,49 +3,74 @@ using Poputkee.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Poputkee.Core.Services
 {
+    /// <summary>
+    /// Мок-реализация сервиса для работы с поездками (для тестирования/разработки)
+    /// </summary>
     public class MockTripService : ITripService
     {
+        #region Fields
 
-        private List<Trip> _trips = new List<Trip>();
+        private readonly List<Trip> _trips = new()
+        {
+            new Trip
+            {
+                //Id = 1,
+                FromCity = "Москва",
+                ToCity = "Санкт-Петербург",
+                DepartureTime = DateTime.Now.AddDays(-3),
+                AvailableSeats = 2,
+                DriverName = "Иван Иванов",
+                Comment = "",
+                IsCompleted = true
+            },
+            new Trip
+            {
+                //Id = 2,
+                FromCity = "Казань",
+                ToCity = "Екатеринбург",
+                DepartureTime = DateTime.Now.AddDays(-7),
+                AvailableSeats = 3,
+                DriverName = "Мария Петрова",
+                Comment = "",
+                IsCompleted = true
+            }
+        };
 
-        // Пример реализации с мок-данными
+        #endregion
+
+
+        #region Public Methods
+
+        /// <summary>
+        /// Получение списка завершенных поездок
+        /// </summary>
         public List<Trip> GetCompletedTrips()
         {
-            return new List<Trip>
-            {
-                new Trip
-                {
-                    FromCity = "Москва",
-                    ToCity = "Санкт-Петербург",
-                    DepartureTime = DateTime.Now.AddDays(-3),
-                    AvailableSeats = 2,
-                    DriverName = "Иван Иванов",
-                    IsCompleted = true
-                },
-                new Trip
-                {
-                    FromCity = "Казань",
-                    ToCity = "Екатеринбург",
-                    DepartureTime = DateTime.Now.AddDays(-7),
-                    AvailableSeats = 3,
-                    DriverName = "Мария Петрова",
-                    IsCompleted = true
-                }
-            };
+            // Возвращаем копию списка для имитации реального поведения
+            return _trips.Where(t => t.IsCompleted).ToList();
         }
+
+        /// <summary>
+        /// Обновление информации о поездке
+        /// </summary>
+        /// <param name="trip">Обновленные данные поездки</param>
+        /// <exception cref="ArgumentException">Если поездка не найдена</exception>
         public void UpdateTrip(Trip trip)
         {
-            var existing = _trips.FirstOrDefault(t => t.DriverName == trip.DriverName);
-            if (existing != null)
+            var existingTrip = _trips.FirstOrDefault(t => t.Id == trip.Id);
+
+            if (existingTrip == null)
             {
-                existing.Rating = trip.Rating;
-                existing.Comment = trip.Comment;
+                throw new ArgumentException("Поездка не найдена");
             }
+
+            existingTrip.Rating = trip.Rating;
+            existingTrip.Comment = trip.Comment;
         }
+
+        #endregion
     }
 }

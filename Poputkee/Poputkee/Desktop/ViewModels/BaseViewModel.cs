@@ -11,13 +11,17 @@ using System.Runtime.CompilerServices; // 2. CallerMemberName
  - Атрибут из System.Runtime.CompilerServices
  - Автоматически подставляет имя вызывающего свойства
  - Позволяет избежать "магических строк":
- 
+
+ |
+ |------------------------------------------------------------------------|
  |```
  | //Вместо этого:
  |  SetField(ref _name, value, "Name");
  | //Можно писать так:
  |  SetProperty(ref _name, value);
  |```
+ |------------------------------------------------------------------------|
+ |
 
  3. SetProperty vs SetField
  - SetProperty - современный метод с автоматическим определением имени свойства
@@ -28,6 +32,7 @@ using System.Runtime.CompilerServices; // 2. CallerMemberName
  - Работает для всех типов данных
 
  | Пример:
+ |------------------------------------------------------------------------|
  |```
  | public class UserViewModel : BaseViewModel
  |{
@@ -39,6 +44,7 @@ using System.Runtime.CompilerServices; // 2. CallerMemberName
  |   }
  |}
  |```
+ |------------------------------------------------------------------------|
  */
 
 

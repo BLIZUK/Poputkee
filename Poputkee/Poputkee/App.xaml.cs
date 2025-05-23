@@ -1,70 +1,107 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Poputkee.Desktop.ViewModels.MainMenu;
-using Poputkee.Desktop.Views.MainMenu;
-using Poputkee.Core.Services;
-//using Poputkee.Infrastructure.Data;
+﻿// System namespaces
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using Poputkee.Core.Services;
 using System.Net.NetworkInformation;
 
+// Third-party dependencies
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+
+// Application components
+using Poputkee.Core.Services;
+using Poputkee.Desktop.ViewModels;
+using Poputkee.Desktop.ViewModels.MainMenu;
+using Poputkee.Desktop.Views.MainMenu;
 
 namespace Poputkee
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Главный класс приложения, отвечающий за конфигурацию и запуск
     /// </summary>
     public partial class App : Application
     {
+        #region Fields
 
-        // private readonly ServiceProvider _serviceProvider;
+        // Провайдер служб для Dependency Injection
         private IServiceProvider _serviceProvider;
 
+        #endregion
 
+        #region Application Lifecycle
+
+        /// <summary>
+        /// Метод инициализации приложения
+        /// </summary>
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            ConfigureApplicationSettings();
+            ConfigureServices();
+            InitializeMainWindow();
 
+            Debug.WriteLine("Application startup completed");
+        }
+
+        #endregion
+
+        #region Configuration Methods
+
+        /// <summary>
+        /// Настройка параметров приложения
+        /// </summary>
+        private void ConfigureApplicationSettings()
+        {
+            ShutdownMode = ShutdownMode.OnLastWindowClose;
+        }
+
+        /// <summary>
+        /// Конфигурация системы Dependency Injection
+        /// </summary>
+        private void ConfigureServices()
+        {
             var services = new ServiceCollection();
 
-            //--------------------------------------------------------------------------->
-            //services.AddSingleton<ITripService, TripService>();
-            // Используем мок-сервис вместо реального TripService
-            services.AddSingleton<ITripService, MockTripService>(); // <- Здесь изменение
-            //
-            //--------------------------------------------------------------------------->
+            // Регистрация сервисов
+            services.AddSingleton<ITripService, MockTripService>();
 
+            // Регистрация ViewModels
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<BookRideViewModel>();
             services.AddTransient<CreateRideViewModel>();
             services.AddTransient<ArchiveViewModel>();
 
             _serviceProvider = services.BuildServiceProvider();
+        }
 
+        #endregion
+
+        #region Window Initialization
+
+        /// <summary>
+        /// Инициализация главного окна приложения
+        /// </summary>
+        private void InitializeMainWindow()
+        {
+            if (MainWindow == null)
+            {
+                CreateAndShowMainWindow();
+            }
+        }
+
+        /// <summary>
+        /// Создание и отображение главного окна
+        /// </summary>
+        private void CreateAndShowMainWindow()
+        {
             MainWindow = new MainWindow
             {
                 DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>()
             };
 
-            //MainWindow.Show();
-
+            MainWindow.Show();
         }
 
-
-        //public App()
-        //{
-
-        //    var services = new ServiceCollection();
-        //    //ConfigureServices(services);
-        //    //_serviceProvider = services.BuildServiceProvider();
-
-        //    // Конструктор вызывается при запуске приложения
-        //    Debug.WriteLine("\n<-------------------------------------------->\n" +
-        //        "             Конструктор App вызван" +
-        //        "\n<-------------------------------------------->\n");
-        //}
+        #endregion
     }
 }
-
