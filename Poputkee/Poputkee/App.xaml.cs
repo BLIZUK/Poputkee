@@ -13,6 +13,7 @@ using Poputkee.Core.Services;
 using Poputkee.Desktop.ViewModels;
 using Poputkee.Desktop.ViewModels.MainMenu;
 using Poputkee.Desktop.Views.MainMenu;
+using Poputkee.Core.Interfaces;
 
 namespace Poputkee
 {
@@ -45,6 +46,7 @@ namespace Poputkee
 
         #endregion
 
+
         #region Configuration Methods
 
         /// <summary>
@@ -64,17 +66,21 @@ namespace Poputkee
 
             // Регистрация сервисов
             services.AddSingleton<ITripService, MockTripService>();
+            services.AddSingleton<IAccountService, AccountService>();
 
             // Регистрация ViewModels
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<BookRideViewModel>();
             services.AddTransient<CreateRideViewModel>();
             services.AddTransient<ArchiveViewModel>();
+            services.AddTransient<AccountViewModel>();
+            //services.AddTransient<EditAccountViewModel>();
 
             _serviceProvider = services.BuildServiceProvider();
         }
 
         #endregion
+
 
         #region Window Initialization
 

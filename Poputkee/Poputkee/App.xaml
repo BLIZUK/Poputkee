@@ -1,85 +1,134 @@
-﻿<Application x:Class="Poputkee.App"
+﻿<!-- 
+    Главный файл ресурсов приложения.
+    Определяет глобальные стили, шаблоны и конвертеры для всего приложения.
+-->
+<Application x:Class="Poputkee.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:Poputkee.Desktop.ViewModels.MainMenu"
              xmlns:views="clr-namespace:Poputkee.Desktop.Views.MainMenu"
              xmlns:local="clr-namespace:Poputkee.Core.Services">
-    
-    
 
     <Application.Resources>
 
+        <!-- 
+            Шаблоны DataTemplate для автоматического связывания ViewModel и View 
+            Реализация концепции ViewModel-first navigation
+        -->
+
+        <!-- Шаблон для BookRideViewModel -->
         <DataTemplate DataType="{x:Type vm:BookRideViewModel}">
             <views:BookRideView/>
+            <!-- Связываем с соответствующим View -->
         </DataTemplate>
 
+        <!-- Шаблон для CreateRideViewModel -->
         <DataTemplate DataType="{x:Type vm:CreateRideViewModel}">
             <views:CreateRideView/>
+            <!-- Автоматическое отображение при установке CurrentView -->
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ArchiveViewModel}">
+            <views:ArchiveView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AccountViewModel}">
+            <views:AccountView/>
         </DataTemplate>
 
 
-        <!-- Стиль для кнопок навигации -->
+        <!-- 
+            Стили для элементов управления 
+            Все стили имеют ключи для явного применения
+        -->
+
+        <!-- Стиль для кнопок навигации в сайдбаре -->
         <Style x:Key="NavButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="5"/>
+            <!-- Внешние отступы -->
             <Setter Property="Padding" Value="15,10"/>
+            <!-- Внутренние отступы -->
             <Setter Property="FontSize" Value="14"/>
+            <!-- Размер текста -->
             <Setter Property="Background" Value="#F0F0F0"/>
+            <!-- Цвет фона -->
             <Setter Property="BorderThickness" Value="0"/>
+            <!-- Убираем границу -->
         </Style>
 
-        
-        <!-- Стиль для полей ввода -->
+        <!-- Стиль для текстовых полей ввода -->
         <Style x:Key="InputFieldStyle" TargetType="TextBox">
             <Setter Property="Margin" Value="0,5"/>
+            <!-- Вертикальные отступы -->
             <Setter Property="Padding" Value="10"/>
+            <!-- Внутренний отступ текста -->
             <Setter Property="FontSize" Value="14"/>
+            <!-- Размер шрифта -->
             <Setter Property="BorderThickness" Value="1"/>
+            <!-- Толщина границы -->
             <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <!-- Цвет границы -->
         </Style>
 
-        
-        <!-- Стиль для основных кнопок -->
+        <!-- Стиль для основных action-кнопок (сохранить, отправить) -->
         <Style x:Key="PrimaryButtonStyle" TargetType="Button">
             <Setter Property="Padding" Value="20,10"/>
+            <!-- Большие отступы для акцента -->
             <Setter Property="FontSize" Value="14"/>
+            <!-- Размер текста -->
             <Setter Property="Background" Value="#0078D4"/>
+            <!-- Синий цвет как CTA -->
             <Setter Property="Foreground" Value="White"/>
+            <!-- Белый текст -->
             <Setter Property="BorderThickness" Value="0"/>
+            <!-- Без границ -->
             <Setter Property="Cursor" Value="Hand"/>
+            <!-- Курсор-указатель -->
         </Style>
 
-        
-        <!-- Стиль для DatePicker -->
+        <!-- Кастомизация DatePicker -->
         <Style x:Key="DatePickerStyle" TargetType="DatePicker">
             <Setter Property="Margin" Value="0,10,0,0"/>
+            <!-- Отступ сверху -->
             <Setter Property="FontSize" Value="14"/>
+            <!-- Размер текста -->
             <Setter Property="BorderThickness" Value="1"/>
+            <!-- Тонкая граница -->
             <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <!-- Цвет границы -->
             <Setter Property="Padding" Value="10"/>
+            <!-- Внутренние отступы -->
         </Style>
 
+        <!-- Стиль для разделителей в списках -->
         <Style x:Key="ListViewSeparatorStyle" TargetType="Separator">
             <Setter Property="Background" Value="#E0E0E0"/>
+            <!-- Цвет линии -->
             <Setter Property="Margin" Value="0,5"/>
+            <!-- Отступы вокруг разделителя -->
         </Style>
 
-        <!-- Стиль для заголовков -->
+        <!-- Стиль для обычного текста в архиве -->
         <Style TargetType="TextBlock" x:Key="ArchiveTextStyle">
             <Setter Property="FontSize" Value="14"/>
+            <!-- Стандартный размер -->
             <Setter Property="Margin" Value="0,2"/>
+            <!-- Минимальные отступы -->
         </Style>
 
-        <!-- Стиль заголовков -->
+        <!-- Стиль для заголовков секций в архиве -->
         <Style TargetType="TextBlock" x:Key="ArchiveHeaderStyle">
             <Setter Property="FontSize" Value="16"/>
+            <!-- Крупный шрифт -->
             <Setter Property="FontWeight" Value="Bold"/>
+            <!-- Жирное начертание -->
             <Setter Property="Margin" Value="0,0,0,10"/>
+            <!-- Отступ снизу -->
         </Style>
 
+        <!-- Конвертер для преобразования null в Visibility -->
         <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <!-- Использование: Visibility="{Binding Property, Converter={StaticResource NullToVisibilityConverter}}" -->
 
     </Application.Resources>
-    
-    
-    
 </Application>

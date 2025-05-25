@@ -1,5 +1,6 @@
 ﻿// System namespaces
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
@@ -23,6 +24,7 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
 
         #endregion
 
+
         #region Constructors
 
         /// <summary>
@@ -37,6 +39,7 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         }
 
         #endregion
+
 
         #region Properties
 
@@ -65,6 +68,7 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
 
         #endregion
 
+
         #region Initialization
 
         /// <summary>
@@ -74,15 +78,21 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         {
             SaveRatingCommand = new RelayCommand(_ =>
             {
-                if (SelectedTrip != null)
+                try
                 {
+                    if (SelectedTrip == null) return;
                     _tripService.UpdateTrip(SelectedTrip);
-                    MessageBox.Show("Оценка сохранена!");
+                    Debug.WriteLine("Оценка сохранена!");
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Ошибка: {ex.Message}");
                 }
             });
         }
 
         #endregion
+
 
         #region Data Loading
 
@@ -102,6 +112,7 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         }
 
         #endregion
+
 
         #region Helper Methods
 

@@ -16,10 +16,10 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
     {
         #region Fields
 
-        private string _fromCity;
-        private string _toCity;
-        private string _departureTime;
-        private int _availableSeats;
+        private string _fromCity = "Откуда";
+        private string _toCity = "Куда";
+        private string _departureTime = "Выберите время";
+        private int _availableSeats = 0;
 
         #endregion
 

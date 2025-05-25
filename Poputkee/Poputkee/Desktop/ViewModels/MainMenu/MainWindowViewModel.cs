@@ -1,12 +1,12 @@
 ﻿// System namespaces
-using System.Windows.Input;
-
 // Application components
+using Poputkee.Core.Interfaces;
 using Poputkee.Core.Services;
-using Poputkee.Desktop.ViewModels;
-using Poputkee.Desktop.ViewModels.MainMenu;
+using System.Windows.Input;
+using System.Windows.Navigation;
 
-namespace Poputkee.Desktop.ViewModels
+
+namespace Poputkee.Desktop.ViewModels.MainMenu
 {
     /// <summary>
     /// ViewModel главного окна приложения, управляющая навигацией между представлениями
@@ -15,6 +15,9 @@ namespace Poputkee.Desktop.ViewModels
     {
         private readonly ITripService _tripService;
         private BaseViewModel _currentView;
+
+        private readonly IAccountService _accountService;
+        private readonly INavigationService _navigationService;
 
         /// <summary>
         /// Конструктор с внедрением зависимости сервиса поездок
@@ -48,6 +51,9 @@ namespace Poputkee.Desktop.ViewModels
         /// </summary>
         public ICommand ShowAccountCommand { get; private set; }
 
+    //    public ICommand NavigateToAccountCommand => new RelayCommand(_ =>
+    //NavigationService.NavigateTo<AccountViewModel>());
+
         #endregion
 
         #region Properties
@@ -78,7 +84,7 @@ namespace Poputkee.Desktop.ViewModels
                 CurrentView = new ArchiveViewModel(_tripService));
 
             ShowAccountCommand = new RelayCommand(_ =>
-                CurrentView = new CreateRideViewModel()); // Возможно требуется замена на AccountViewModel
+                CurrentView = new (accountService, navigationService)); // Возможно требуется замена на AccountViewModel
         }
     }
 }
