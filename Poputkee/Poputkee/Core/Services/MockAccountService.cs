@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Poputkee.Core.Services
 {
-    public class AccountService : IAccountService
+    public class MockAccountService : IAccountService
     {
         private Account _currentAccount = new Account
         {

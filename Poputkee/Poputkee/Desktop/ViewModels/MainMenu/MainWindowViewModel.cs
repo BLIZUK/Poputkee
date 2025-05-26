@@ -84,7 +84,8 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
                 CurrentView = new ArchiveViewModel(_tripService));
 
             ShowAccountCommand = new RelayCommand(_ =>
-                CurrentView = new (accountService, navigationService)); // Возможно требуется замена на AccountViewModel
+    CurrentView = new AccountViewModel(_accountService, _navigationService)
+);
         }
     }
 }

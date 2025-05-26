@@ -1,4 +1,5 @@
-﻿using System; // Для базовых типов (например, Object, EventArgs)
+﻿using Poputkee.Core.Interfaces;
+using System; // Для базовых типов (например, Object, EventArgs)
 
 using System.ComponentModel; // 1. INotifyPropertyChanged
 /*
@@ -56,6 +57,7 @@ namespace Poputkee.Desktop.ViewModels
     /// </summary>
     public class BaseViewModel : INotifyPropertyChanged
     {
+
         // Событие для уведомления об изменении свойств
         public event PropertyChangedEventHandler PropertyChanged;
 

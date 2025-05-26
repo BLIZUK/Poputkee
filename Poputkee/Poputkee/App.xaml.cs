@@ -66,7 +66,8 @@ namespace Poputkee
 
             // Регистрация сервисов
             services.AddSingleton<ITripService, MockTripService>();
-            services.AddSingleton<IAccountService, AccountService>();
+            services.AddSingleton<IAccountService, MockAccountService>();
+            services.AddSingleton<INavigationService, NavigationService>();
 
             // Регистрация ViewModels
             services.AddTransient<MainWindowViewModel>();

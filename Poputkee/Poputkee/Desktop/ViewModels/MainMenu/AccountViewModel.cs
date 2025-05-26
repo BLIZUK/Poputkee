@@ -20,8 +20,9 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
 
         public AccountViewModel(IAccountService accountService, INavigationService navigationService)
         {
-            _accountService = accountService;
-            _navigationService = navigationService;
+            // Проверка на null
+            _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
+            _navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
             CurrentAccount = _accountService.GetAccount();
 
             EditCommand = new RelayCommand(_ =>
