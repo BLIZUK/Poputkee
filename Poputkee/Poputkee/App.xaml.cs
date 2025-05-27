@@ -10,10 +10,10 @@ using Microsoft.EntityFrameworkCore;
 
 // Application components
 using Poputkee.Core.Services;
-using Poputkee.Desktop.ViewModels;
 using Poputkee.Desktop.ViewModels.MainMenu;
 using Poputkee.Desktop.Views.MainMenu;
 using Poputkee.Core.Interfaces;
+using Poputkee.Desktop.ViewModels;
 
 namespace Poputkee
 {
@@ -23,6 +23,8 @@ namespace Poputkee
     public partial class App : Application
     {
         #region Fields
+
+        public static IServiceProvider ServiceProvider { get; private set; }
 
         // Провайдер служб для Dependency Injection
         private IServiceProvider _serviceProvider;
@@ -36,11 +38,18 @@ namespace Poputkee
         /// </summary>
         protected override void OnStartup(StartupEventArgs e)
         {
+            /* var 1
             base.OnStartup(e);
             ConfigureApplicationSettings();
             ConfigureServices();
             InitializeMainWindow();
+            */
+            // var 2
 
+            base.OnStartup(e);
+            ConfigureServices();
+            var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
             Debug.WriteLine("Application startup completed");
         }
 
@@ -75,9 +84,13 @@ namespace Poputkee
             services.AddTransient<CreateRideViewModel>();
             services.AddTransient<ArchiveViewModel>();
             services.AddTransient<AccountViewModel>();
-            //services.AddTransient<EditAccountViewModel>();
+            services.AddTransient<EditAccountViewModel>();
+
+            // Регистрация MainWindow
+            services.AddSingleton<MainWindow>();
 
             _serviceProvider = services.BuildServiceProvider();
+            ServiceProvider = _serviceProvider;
         }
 
         #endregion

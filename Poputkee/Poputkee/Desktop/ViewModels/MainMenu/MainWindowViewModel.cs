@@ -14,18 +14,35 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
     public class MainWindowViewModel : BaseViewModel
     {
         private readonly ITripService _tripService;
-        private BaseViewModel _currentView;
-
+        //new
         private readonly IAccountService _accountService;
         private readonly INavigationService _navigationService;
+
+        private BaseViewModel _currentView;
 
         /// <summary>
         /// Конструктор с внедрением зависимости сервиса поездок
         /// </summary>
         /// <param name="MocktripService">Мок-реализация сервиса поездок (для тестирования/разработки)</param>
-        public MainWindowViewModel(ITripService MocktripService)
+        /// <param name="MockAccountService">Мок-реализация сервиса Аккаунта (для тестирования/разработки)</param>
+        //public MainWindowViewModel(ITripService MocktripService, IAccountService MockAccountService, INavigationService navigationService)
+        //{
+        //    _navigationService = navigationService;
+        //    //CurrentViewModel = _navigationService.GetViewModel<HomeViewModel>();
+        //    _accountService = MockAccountService;
+        //    _tripService = MocktripService;
+
+        //    InitializeCommands();
+        //}
+
+
+        //NEW
+        public MainWindowViewModel(ITripService tripService, IAccountService accountService, INavigationService navigationService)
         {
-            _tripService = MocktripService;
+            _tripService = tripService;
+            _accountService = accountService;
+            _navigationService = navigationService;
+            CurrentView = _navigationService.GetViewModel<BookRideViewModel>(); // Пример начальной View
             InitializeCommands();
         }
 
@@ -51,8 +68,6 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         /// </summary>
         public ICommand ShowAccountCommand { get; private set; }
 
-    //    public ICommand NavigateToAccountCommand => new RelayCommand(_ =>
-    //NavigationService.NavigateTo<AccountViewModel>());
 
         #endregion
 
@@ -72,20 +87,35 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         /// <summary>
         /// Инициализация команд навигации
         /// </summary>
+        //private void InitializeCommands()
+        //{
+        //    ShowBookRideCommand = new RelayCommand(_ =>
+        //        CurrentView = new BookRideViewModel());
+
+        //    ShowCreateRideCommand = new RelayCommand(_ =>
+        //        CurrentView = new CreateRideViewModel());
+
+        //    ShowArchiveCommand = new RelayCommand(_ =>
+        //        CurrentView = new ArchiveViewModel(_tripService));
+
+        //    ShowAccountCommand = new RelayCommand(_ =>
+        //        CurrentView = new AccountViewModel(_accountService, _navigationService));
+        //}
+
+        //NEW
         private void InitializeCommands()
         {
             ShowBookRideCommand = new RelayCommand(_ =>
-                CurrentView = new BookRideViewModel());
+                CurrentView = _navigationService.GetViewModel<BookRideViewModel>());
 
             ShowCreateRideCommand = new RelayCommand(_ =>
-                CurrentView = new CreateRideViewModel());
+                CurrentView = _navigationService.GetViewModel<CreateRideViewModel>());
 
             ShowArchiveCommand = new RelayCommand(_ =>
-                CurrentView = new ArchiveViewModel(_tripService));
+                CurrentView = _navigationService.GetViewModel<ArchiveViewModel>());
 
             ShowAccountCommand = new RelayCommand(_ =>
-    CurrentView = new AccountViewModel(_accountService, _navigationService)
-);
+                CurrentView = _navigationService.GetViewModel<AccountViewModel>());
         }
     }
 }

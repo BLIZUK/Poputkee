@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
-namespace Poputkee.Desktop.ViewModels
+namespace Poputkee.Desktop.ViewModels.MainMenu
 {
     public class EditAccountViewModel : BaseViewModel
     {
@@ -33,7 +33,7 @@ namespace Poputkee.Desktop.ViewModels
             CancelCommand = new RelayCommand(_ => _navigationService.GoBack());
         }
 
-        private Account CloneAccount(Account source) => new Account
+        private Account CloneAccount(Account source) => new()
         {
             Email = source.Email,
             Name = source.Name,

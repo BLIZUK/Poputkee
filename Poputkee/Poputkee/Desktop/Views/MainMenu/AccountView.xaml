@@ -13,7 +13,7 @@
 
         <TextBlock Text="{Binding CurrentAccount.Name}" FontSize="18"/>
         <TextBlock Text="{Binding CurrentAccount.Email}"/>
-        <TextBlock Text="{Binding CurrentAccount.BirthDate, StringFormat='Date of birth: {0:dd.MM.yyyy}'}"/>
+        <TextBlock Text="{Binding CurrentAccount.BirthDate, StringFormat='Дата рождения: {0:dd.MM.yyyy}'}"/>
         <TextBlock Text="{Binding CurrentAccount.Bio}" TextWrapping="Wrap"/>
 
         <Button Content="Edit Profile" 

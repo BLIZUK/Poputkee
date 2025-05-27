@@ -14,5 +14,7 @@ namespace Poputkee.Core.Interfaces
 
         // Возврат к предыдущему экрану
         void GoBack();
+
+        public T GetViewModel<T>() where T : BaseViewModel;
     }
 }

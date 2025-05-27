@@ -15,28 +15,28 @@ namespace Poputkee.Core.Services
 
         private readonly List<Trip> _trips = new()
         {
-        //    new Trip
-        //    {
-        //        //Id = 1,
-        //        FromCity = "Москва",
-        //        ToCity = "Санкт-Петербург",
-        //        DepartureTime = DateTime.Now.AddDays(-3),
-        //        AvailableSeats = 2,
-        //        DriverName = "Иван Иванов",
-        //        Comment = "",
-        //        IsCompleted = true
-        //    },
-        //    new Trip
-        //    {
-        //        //Id = 2,
-        //        FromCity = "Казань",
-        //        ToCity = "Екатеринбург",
-        //        DepartureTime = DateTime.Now.AddDays(-7),
-        //        AvailableSeats = 3,
-        //        DriverName = "Мария Петрова",
-        //        Comment = "",
-        //        IsCompleted = true
-        //    }
+            new Trip
+            {
+                //Id = 1,
+                FromCity = "Москва",
+                ToCity = "Санкт-Петербург",
+                DepartureTime = DateTime.Now.AddDays(-3),
+                AvailableSeats = 2,
+                DriverName = "Иван Иванов",
+                Comment = "",
+                IsCompleted = true
+            },
+            new Trip
+            {
+                //Id = 2,
+                FromCity = "Казань",
+                ToCity = "Екатеринбург",
+                DepartureTime = DateTime.Now.AddDays(-7),
+                AvailableSeats = 3,
+                DriverName = "Мария Петрова",
+                Comment = "",
+                IsCompleted = true
+            }
         };
 
         #endregion

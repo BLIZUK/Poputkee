@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Windows.Navigation;
+using Poputkee.Core.Services;
+using System.Windows;
+using System.Diagnostics;
 
 namespace Poputkee.Desktop.ViewModels.MainMenu
 {
@@ -16,17 +18,38 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         private readonly INavigationService _navigationService;
         public Account CurrentAccount { get; }
 
-        public ICommand EditCommand { get; }
+        public ICommand EditCommand { get; }   // null!
+                                                            /*
+                                                             * Свойство EditCommand в AccountViewModel объявлено, но не инициализировано:
+                                                             * Это вызывает ошибку времени выполнения при попытке вызвать команду.
+                                                             */
+
+        // , INavigationService navigationService
+        // _navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
 
         public AccountViewModel(IAccountService accountService, INavigationService navigationService)
         {
-            // Проверка на null
-            _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
-            _navigationService = navigationService ?? throw new ArgumentNullException(nameof(navigationService));
+
+            _accountService = accountService;
+            _navigationService = navigationService;
             CurrentAccount = _accountService.GetAccount();
 
-            EditCommand = new RelayCommand(_ =>
-                _navigationService.NavigateTo<EditAccountViewModel>());
+            // Инициализируйте команду
+            EditCommand = new RelayCommand(() => _navigationService.NavigateTo<EditAccountViewModel>());
+
+            try
+            {
+                //.NavigateTo<EditAccountViewModel>();  // ОШИБКА!
+                                                                        /*
+                                                                         * Это приводит к автоматическому переходу на EditAccountViewModel при создании AccountViewModel,
+                                                                         * что недопустимо. Навигация должна выполняться через команду (например, по клику кнопки),
+                                                                         * а не в конструкторе.
+                                                                         */
+    }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Ошибка: {ex.Message}");
+            }
         }
     } 
 }

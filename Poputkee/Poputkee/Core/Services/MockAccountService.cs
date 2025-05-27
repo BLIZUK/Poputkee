@@ -1,20 +1,16 @@
 ﻿using Poputkee.Core.Interfaces;
 using Poputkee.Core.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Poputkee.Core.Services
 {
     public class MockAccountService : IAccountService
     {
-        private Account _currentAccount = new Account
+        private Account _currentAccount = new()
         {
-            Email = "user@example.com",
-            Name = "John Doe",
-            BirthDate = new DateTime(1990, 1, 1),
+            Email = "blizu4enko.andrei@yandex.ru",
+            Name = "Близученко Андрей",
+            BirthDate = new DateTime(2003, 6, 5),
             Bio = "Software Developer",
         };
 

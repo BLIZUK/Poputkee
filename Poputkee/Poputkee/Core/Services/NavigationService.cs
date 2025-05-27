@@ -13,7 +13,7 @@ namespace Poputkee.Core.Services
     public class NavigationService : INavigationService
     {
         private readonly IServiceProvider _serviceProvider;
-        private Stack<BaseViewModel> _navigationStack = new Stack<BaseViewModel>();
+        private Stack<BaseViewModel> _navigationStack = new();
 
         public NavigationService(IServiceProvider serviceProvider)
         {
@@ -42,6 +42,11 @@ namespace Poputkee.Core.Services
                 var mainVm = _serviceProvider.GetRequiredService<MainWindowViewModel>();
                 mainVm.CurrentView = previousVm;
             }
+        }
+
+        public T GetViewModel<T>() where T : BaseViewModel
+        {
+            return _serviceProvider.GetRequiredService<T>();
         }
     }
 }

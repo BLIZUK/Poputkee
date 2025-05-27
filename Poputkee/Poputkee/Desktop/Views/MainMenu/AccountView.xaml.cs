@@ -1,6 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using Poputkee.Desktop.ViewModels.MainMenu;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Controls;
+
 
 
 namespace Poputkee.Desktop.Views.MainMenu
@@ -13,6 +14,7 @@ namespace Poputkee.Desktop.Views.MainMenu
         public AccountView()
         {
             InitializeComponent();
+            //DataContext = App.ServiceProvider.GetRequiredService<AccountViewModel>();
         }
     }
 }
