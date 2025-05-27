@@ -59,6 +59,7 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
 
         #endregion
 
+        
         #region Commands
 
         /// <summary>
