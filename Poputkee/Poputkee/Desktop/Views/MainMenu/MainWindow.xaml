@@ -3,48 +3,42 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:vm="clr-namespace:Poputkee.Desktop.ViewModels"
-        xmlns:mainmenu="clr-namespace:Poputkee.Desktop.ViewModels.MainMenu" d:DataContext="{d:DesignInstance Type=mainmenu:MainWindowViewModel}"
+        xmlns:mainmenu="clr-namespace:Poputkee.Desktop.ViewModels.MainMenu" 
         Title="Poputkee" Height="600" Width="800" Background="#FFDBF1EC">
 
     <Grid>
-        <!-- Объявление страниц |start|-->
-        <ContentControl x:Name="contentControl" Content="{Binding CurrentView}"/>
-        <!-- Объявление страниц | end |-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <!-- Основной контент |start|-->
-        <ContentControl Grid.Row="0" Margin="10">
-        </ContentControl>
-        <!-- Основной контент | end | -->
+        <!-- Основной контент (только один ContentControl!) -->
+        <ContentControl Grid.Row="0"
+                    Margin="10"
+                    Content="{Binding CurrentView}" />
 
-        <!-- Панель навигации (4 кнопки внизу) |start|-->
+        <!-- Панель навигации -->
         <Border Grid.Row="1" Background="#FFE1FFF6" Padding="10">
             <Border.Effect>
                 <DropShadowEffect Color="Gray" BlurRadius="10" Direction="270" Opacity="0.5"/>
             </Border.Effect>
             <UniformGrid Rows="1" Columns="4">
                 <Button x:Name="BookRide" Content="Бронировать" 
-                Command="{Binding ShowBookRideCommand}"
-                Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>
+                    Command="{Binding ShowBookRideCommand}"
+                    Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>
 
                 <Button x:Name="CreatTrip" Content="Создать поездку" 
-                        Command="{Binding ShowCreateRideCommand}"
-                        Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>
+                    Command="{Binding ShowCreateRideCommand}"
+                    Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>
 
                 <Button Content="Архив" 
-                        Command="{Binding ShowArchiveCommand}"
-                        Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>
-                <Button Content="Аккаунт" 
-                        Command="{Binding ShowAccountCommand}"
-                        Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>
+                    Command="{Binding ShowArchiveCommand}"
+                    Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>
 
-                <ContentControl Content="{Binding CurrentViewModel}" />
+                <Button Content="Аккаунт" 
+                    Command="{Binding ShowAccountCommand}"
+                    Style="{StaticResource NavButtonStyle}" Background="#FFB7DECD"/>
             </UniformGrid>
         </Border>
-        <!-- Панель навигации (4 кнопки внизу) | end |-->
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
     </Grid>
 </Window>

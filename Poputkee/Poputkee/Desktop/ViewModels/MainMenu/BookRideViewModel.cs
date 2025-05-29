@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using Poputkee.Core.Models;
+
 
 // Application components
 using Poputkee.Core.Services;
@@ -16,6 +18,10 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
     {
         #region Fields
 
+        private readonly ITripService _tripService;
+
+        public Trip Trip { get; set; } = new Trip();
+
         private string _from = "Откуда";
         private string _to = "Куда то))";
         private DateTime _selectedDate = DateTime.Now;
@@ -28,9 +34,10 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         /// <summary>
         /// Конструктор инициализирующий команды и логирующий создание экземпляра
         /// </summary>
-        public BookRideViewModel()
+        public BookRideViewModel(ITripService tripService)
         {
             Logger.LogDebug("--->>> Конструктор BookRideViewModel вызван");
+            _tripService = tripService;
             InitializeCommands();
         }
 

@@ -16,8 +16,8 @@
         <TextBlock Text="{Binding CurrentAccount.BirthDate, StringFormat='Дата рождения: {0:dd.MM.yyyy}'}"/>
         <TextBlock Text="{Binding CurrentAccount.Bio}" TextWrapping="Wrap"/>
 
-        <Button Content="Edit Profile" 
-                Command="{Binding EditCommand}"
-                Margin="0,20"/>
+        <Button Content="Edit Account" 
+        Command="{Binding EditCommand}"
+        Style="{StaticResource PrimaryButtonStyle}"/>
     </StackPanel>
 </UserControl>

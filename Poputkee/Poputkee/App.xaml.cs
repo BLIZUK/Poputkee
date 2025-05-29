@@ -38,13 +38,6 @@ namespace Poputkee
         /// </summary>
         protected override void OnStartup(StartupEventArgs e)
         {
-            /* var 1
-            base.OnStartup(e);
-            ConfigureApplicationSettings();
-            ConfigureServices();
-            InitializeMainWindow();
-            */
-            // var 2
 
             base.OnStartup(e);
             ConfigureServices();
@@ -57,14 +50,6 @@ namespace Poputkee
 
 
         #region Configuration Methods
-
-        /// <summary>
-        /// Настройка параметров приложения
-        /// </summary>
-        private void ConfigureApplicationSettings()
-        {
-            ShutdownMode = ShutdownMode.OnLastWindowClose;
-        }
 
         /// <summary>
         /// Конфигурация системы Dependency Injection
@@ -91,35 +76,6 @@ namespace Poputkee
 
             _serviceProvider = services.BuildServiceProvider();
             ServiceProvider = _serviceProvider;
-        }
-
-        #endregion
-
-
-        #region Window Initialization
-
-        /// <summary>
-        /// Инициализация главного окна приложения
-        /// </summary>
-        private void InitializeMainWindow()
-        {
-            if (MainWindow == null)
-            {
-                CreateAndShowMainWindow();
-            }
-        }
-
-        /// <summary>
-        /// Создание и отображение главного окна
-        /// </summary>
-        private void CreateAndShowMainWindow()
-        {
-            MainWindow = new MainWindow
-            {
-                DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>()
-            };
-
-            MainWindow.Show();
         }
 
         #endregion

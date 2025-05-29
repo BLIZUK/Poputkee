@@ -38,7 +38,12 @@ namespace Poputkee.Core.Services
         /// <exception cref="ArgumentException">Если поездка не найдена</exception>
         void UpdateTrip(Trip trip);
 
+        void AddTrip(Trip trip);
+
         #endregion
+
+
+        List<Trip> FindTrips(string from, string to, DateTime date);
 
         // Пример закомментированного метода для будущей реализации
         // List<Trip> PushCompletedTrips();

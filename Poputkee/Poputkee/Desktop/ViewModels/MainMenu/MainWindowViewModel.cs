@@ -69,6 +69,7 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         public ICommand ShowAccountCommand { get; private set; }
 
 
+
         #endregion
 
         #region Properties
@@ -114,8 +115,10 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
             ShowArchiveCommand = new RelayCommand(_ =>
                 CurrentView = _navigationService.GetViewModel<ArchiveViewModel>());
 
-            ShowAccountCommand = new RelayCommand(_ =>
+                ShowAccountCommand = new RelayCommand(_ =>
                 CurrentView = _navigationService.GetViewModel<AccountViewModel>());
+
+
         }
     }
 }

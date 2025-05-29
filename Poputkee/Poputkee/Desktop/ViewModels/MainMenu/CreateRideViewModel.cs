@@ -16,6 +16,8 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
     {
         #region Fields
 
+        public Trip Trip { get; set; } = new Trip();
+
         private string _fromCity = "Откуда";
         private string _toCity = "Куда";
         private string _departureTime = "Выберите время";
@@ -104,6 +106,7 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         private void ExecuteCreateRide(object parameter)
         {
             Debug.WriteLine("---->>> Запрос на создание поездки:");
+            
             LogRideDetails();
 
             // TODO: Добавить логику сохранения поездки

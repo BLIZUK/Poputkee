@@ -71,6 +71,24 @@ namespace Poputkee.Core.Services
             existingTrip.Comment = trip.Comment;
         }
 
+
+        public void AddTrip(Trip trip)
+        {
+            _trips.Add(trip);
+        }
+
         #endregion
+
+
+        public List<Trip> FindTrips(string from, string to, DateTime date)
+        {
+            return _trips
+                .Where(t =>
+                    t.FromCity.Equals(from, StringComparison.OrdinalIgnoreCase) &&
+                    t.ToCity.Equals(to, StringComparison.OrdinalIgnoreCase) &&
+                    t.DepartureTime.Date == date.Date &&
+                    !t.IsCompleted)
+                .ToList();
+        }
     }
 }

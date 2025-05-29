@@ -11,22 +11,9 @@ namespace Poputkee.Desktop.Views.MainMenu;
 /// </summary>
 public partial class MainWindow : Window
 {
-    public MainWindow()
-    {
-        InitializeComponent();
-        // Создаем экземпляры сервисов и передаем в ViewModel
-        INavigationService navigationService = new NavigationService(serviceProvider);
-        ITripService tripService = new MockTripService();
-        IAccountService accountService = new MockAccountService();
-        DataContext = new MainWindowViewModel(tripService, accountService, navigationService);  // Устанавливаем контекст данных
-    }
-
-
     public MainWindow(MainWindowViewModel viewModel)
     {
         InitializeComponent();
         DataContext = viewModel; // Устанавливаем контекст данных
     }
-
-    public IServiceProvider serviceProvider { get; }
 }   

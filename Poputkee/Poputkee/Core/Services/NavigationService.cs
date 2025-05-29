@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Poputkee.Core.Services
 {
@@ -28,6 +29,7 @@ namespace Poputkee.Core.Services
 
             // Пример: обновление CurrentView в MainWindowViewModel
             var mainVm = _serviceProvider.GetRequiredService<MainWindowViewModel>();
+            Debug.WriteLine($">>> Переход к: {typeof(T).Name}");
             mainVm.CurrentView = viewModel;
         }
 
