@@ -26,6 +26,7 @@
             <Button Content="Save" 
                     Command="{Binding SaveCommand}"
                     Style="{StaticResource PrimaryButtonStyle}"/>
+            
         </StackPanel>
     </StackPanel>
 </UserControl>

@@ -44,7 +44,10 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
             _navigationService = navigationService;
             CurrentView = _navigationService.GetViewModel<BookRideViewModel>(); // Пример начальной View
             InitializeCommands();
+
         }
+
+
 
         #region Commands
 

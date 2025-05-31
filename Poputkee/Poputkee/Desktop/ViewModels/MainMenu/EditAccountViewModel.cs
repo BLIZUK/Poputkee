@@ -1,13 +1,7 @@
 ﻿using Poputkee.Core.Interfaces;
 using Poputkee.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Poputkee.Desktop.ViewModels;
 using System.Windows.Input;
-using System.Windows.Navigation;
 
 namespace Poputkee.Desktop.ViewModels.MainMenu
 {
@@ -16,40 +10,33 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         private readonly IAccountService _accountService;
         private readonly INavigationService _navigationService;
 
-        public Account EditableAccount { get; }
+        public Account EditingAccount { get; set; }
 
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public EditAccountViewModel(IAccountService accountService, INavigationService navigationService)
+        public EditAccountViewModel(
+            IAccountService accountService,
+            INavigationService navigationService)
         {
             _accountService = accountService;
             _navigationService = navigationService;
 
             // Создаем копию для редактирования
-            EditableAccount = CloneAccount(_accountService.GetAccount());
+            EditingAccount = accountService.GetAccount().Clone();
 
-            SaveCommand = new RelayCommand(_ => SaveChanges());
-            CancelCommand = new RelayCommand(_ => _navigationService.GoBack());
+            SaveCommand = new RelayCommand(SaveChanges);
+            CancelCommand = new RelayCommand(CancelEditing);
         }
 
-        private Account CloneAccount(Account source) => new()
+        private void SaveChanges(object obj)
         {
-            Email = source.Email,
-            Name = source.Name,
-            BirthDate = source.BirthDate,
-            Bio = source.Bio
-        };
+            _accountService.UpdateAccount(EditingAccount);
+            _navigationService.GoBack();
+        }
 
-        private void SaveChanges()
+        private void CancelEditing(object obj)
         {
-            if (string.IsNullOrWhiteSpace(EditableAccount.Name))
-            {
-                Debug.WriteLine("Name cannot be empty!");
-                return;
-            }
-
-            _accountService.UpdateAccount(EditableAccount);
             _navigationService.GoBack();
         }
     }

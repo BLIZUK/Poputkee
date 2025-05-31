@@ -12,6 +12,7 @@ namespace Poputkee.Core.Services
             Name = "Близученко Андрей",
             BirthDate = new DateTime(2003, 6, 5),
             Bio = "Software Developer",
+            AvatarUrl = "https://i.pravatar.cc/150?img=32"
         };
 
         public Account GetAccount() => _currentAccount;

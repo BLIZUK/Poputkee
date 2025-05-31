@@ -1,135 +1,119 @@
-﻿// System namespaces
-using System;
-using System.Diagnostics;
-using System.Windows.Input;
-
-// Application components
+﻿// Poputkee.Desktop/ViewModels/MainMenu/CreateRideViewModel.cs
 using Poputkee.Core.Models;
-using Poputkee.Desktop.ViewModels.MainMenu;
+using Poputkee.Core.Services;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Poputkee.Desktop.ViewModels.MainMenu
 {
-    /// <summary>
-    /// ViewModel для создания новой поездки
-    /// </summary>
     public class CreateRideViewModel : BaseViewModel
     {
-        #region Fields
+        private readonly ITripService _tripService;
+        private string _fromCity;
+        private string _toCity;
+        private DateTime _departureTime = DateTime.Now.AddHours(1);
+        private int _availableSeats = 1;
 
-        public Trip Trip { get; set; } = new Trip();
-
-        private string _fromCity = "Откуда";
-        private string _toCity = "Куда";
-        private string _departureTime = "Выберите время";
-        private int _availableSeats = 0;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Конструктор инициализирующий команды и логирующий создание экземпляра
-        /// </summary>
-        public CreateRideViewModel()
+        public CreateRideViewModel(ITripService tripService)
         {
-            Debug.WriteLine("--->>> Инициализация CreateRideViewModel");
-            InitializeCommands();
+            _tripService = tripService;
+            CreateRideCommand = new RelayCommand(async _ => await CreateRideAsync());
         }
 
-        #endregion
+        public ICommand CreateRideCommand { get; }
 
-        #region Properties
-
-        /// <summary>
-        /// Город отправления
-        /// </summary>
         public string FromCity
         {
             get => _fromCity;
             set => SetProperty(ref _fromCity, value);
         }
 
-        /// <summary>
-        /// Город назначения
-        /// </summary>
         public string ToCity
         {
             get => _toCity;
             set => SetProperty(ref _toCity, value);
         }
 
-        /// <summary>
-        /// Время отправления (строковое представление)
-        /// </summary>
-        /// <remarks>
-        /// TODO: Рассмотреть возможность использования типа DateTime
-        /// </remarks>
-        public string DepartureTime
+        public DateTime DepartureTime
         {
             get => _departureTime;
             set => SetProperty(ref _departureTime, value);
         }
 
-        /// <summary>
-        /// Количество доступных мест
-        /// </summary>
         public int AvailableSeats
         {
             get => _availableSeats;
             set => SetProperty(ref _availableSeats, value);
         }
 
-        #endregion
-
-        #region Commands
-
-        /// <summary>
-        /// Команда для создания новой поездки
-        /// </summary>
-        public ICommand CreateRideCommand { get; private set; }
-
-        #endregion
-
-        #region Command Implementation
-
-        /// <summary>
-        /// Инициализация команд
-        /// </summary>
-        private void InitializeCommands()
+        private async Task CreateRideAsync()
         {
-            CreateRideCommand = new RelayCommand(ExecuteCreateRide);
+            if (!ValidateInput()) return;
+
+            try
+            {
+                var newTrip = new Trip
+                {
+                    FromCity = FromCity,
+                    ToCity = ToCity,
+                    DepartureTime = DepartureTime,
+                    AvailableSeats = AvailableSeats
+                };
+
+                await _tripService.CreateTripAsync(newTrip);
+                MessageBox.Show("Поездка успешно создана!", "Успех",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+
+                ResetForm();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при создании поездки: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        /// <summary>
-        /// Обработчик создания поездки
-        /// </summary>
-        private void ExecuteCreateRide(object parameter)
+        private bool ValidateInput()
         {
-            Debug.WriteLine("---->>> Запрос на создание поездки:");
-            
-            LogRideDetails();
+            if (string.IsNullOrWhiteSpace(FromCity))
+            {
+                MessageBox.Show("Введите город отправления", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
 
-            // TODO: Добавить логику сохранения поездки
+            if (string.IsNullOrWhiteSpace(ToCity))
+            {
+                MessageBox.Show("Введите город назначения", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (DepartureTime < DateTime.Now)
+            {
+                MessageBox.Show("Дата отправления не может быть в прошлом", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (AvailableSeats < 1 || AvailableSeats > 10)
+            {
+                MessageBox.Show("Количество мест должно быть от 1 до 10", "Ошибка",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            return true;
         }
 
-        #endregion
-
-        #region Helper Methods
-
-        /// <summary>
-        /// Логирование деталей поездки
-        /// </summary>
-        private void LogRideDetails()
+        private void ResetForm()
         {
-            Debug.WriteLine(
-                $"--------------------------------------\n" +
-                $"From: {FromCity}\n" +
-                $"To: {ToCity}\n" +
-                $"Time: {DepartureTime}\n" +
-                $"Seats: {AvailableSeats}\n" +
-                $"--------------------------------------");
+            FromCity = string.Empty;
+            ToCity = string.Empty;
+            DepartureTime = DateTime.Now.AddHours(1);
+            AvailableSeats = 1;
         }
-
-        #endregion
     }
 }

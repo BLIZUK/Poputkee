@@ -28,7 +28,7 @@ namespace Poputkee.Core.Services
         /// Получение списка завершенных поездок
         /// </summary>
         /// <returns>Коллекция завершенных поездок</returns>
-        List<Trip> GetCompletedTrips();
+        Task<List<Trip>> GetCompletedTripsAsync();
 
         /// <summary>
         /// Обновление информации о поездке
@@ -36,16 +36,9 @@ namespace Poputkee.Core.Services
         /// <param name="trip">Обновляемая поездка</param>
         /// <exception cref="ArgumentNullException">Если поездка равна null</exception>
         /// <exception cref="ArgumentException">Если поездка не найдена</exception>
-        void UpdateTrip(Trip trip);
-
-        void AddTrip(Trip trip);
+        Task UpdateTripAsync(Trip trip);
+        Task CreateTripAsync(Trip trip); // Асинхронное создание
 
         #endregion
-
-
-        List<Trip> FindTrips(string from, string to, DateTime date);
-
-        // Пример закомментированного метода для будущей реализации
-        // List<Trip> PushCompletedTrips();
     }
 }

@@ -103,13 +103,15 @@ namespace Poputkee.Infrastructure.Data
         /// </summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Trip>(entity =>
+            {
+                entity.Property(t => t.FromCity).IsRequired().HasMaxLength(100);
+                entity.Property(t => t.ToCity).IsRequired().HasMaxLength(100);
+                entity.Property(t => t.DriverName).IsRequired().HasMaxLength(100);
+                entity.Property(t => t.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            });
 
-            // Автоматическое применение всех конфигураций
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-
-            // Альтернативный вариант ручной конфигурации:
-            // ConfigureRelationships(modelBuilder);
+            // Остальные конфигурации...
         }
 
         #endregion

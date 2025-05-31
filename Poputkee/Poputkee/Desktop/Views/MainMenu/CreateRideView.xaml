@@ -1,60 +1,65 @@
 ﻿<UserControl x:Class="Poputkee.Desktop.Views.MainMenu.CreateRideView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" 
-             d:DesignWidth="800">
-    <UserControl.Effect>
-        <DropShadowEffect Color="Gray" BlurRadius="15" Direction="290" Opacity="0.7"/>
-    </UserControl.Effect>
-    <Grid Margin="20">
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300">
-            <!-- Заголовок -->
-            <TextBlock Text="Создать поездку" 
-                       FontSize="20"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,20"/>
+             mc:Ignorable="d"
+             d:DesignHeight="500" d:DesignWidth="600"
+             Padding="20">
 
-            <!-- Поле "Откуда" -->
-            <TextBox Tag="Откуда" 
-                     Text="{Binding FromCity}"
-                     Style="{StaticResource InputFieldStyle}"/>
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" x:Key="LabelStyle">
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+    </UserControl.Resources>
 
-            <!-- Поле "Куда" -->
-            <TextBox Tag="Куда" 
-                     Text="{Binding ToCity}"
-                     Style="{StaticResource InputFieldStyle}"
-                     Margin="0,10,0,0"/>
+    <Grid>
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Text="Создать новую поездку"
+                           FontSize="20" FontWeight="Bold"
+                           Margin="0,0,0,20"/>
 
-            <!-- Дата отправления -->
-            <DatePicker SelectedDate="{Binding DepartureDate}"
-                        Margin="0,10,0,0"
-                        Style="{StaticResource DatePickerStyle}"/>
+                <!-- Откуда -->
+                <TextBlock Text="Откуда:" Style="{StaticResource LabelStyle}"/>
+                <TextBox Text="{Binding FromCity}" 
+                         Style="{StaticResource InputFieldStyle}"/>
 
-            <!-- Время отправления -->
-            <TextBox Tag="Время (HH:mm)" 
-                     Text="{Binding DepartureTime}"
-                     Style="{StaticResource InputFieldStyle}"
-                     Margin="0,10,0,0"/>
-            <TextBox Text="{Binding DepartureTime, UpdateSourceTrigger=PropertyChanged}"/>
+                <!-- Куда -->
+                <TextBlock Text="Куда:" Style="{StaticResource LabelStyle}" Margin="0,15,0,0"/>
+                <TextBox Text="{Binding ToCity}" 
+                         Style="{StaticResource InputFieldStyle}"/>
 
-            <!-- Количество мест -->
-            <TextBox Tag="Количество мест" 
-                     Text="{Binding AvailableSeats}"
-                     Style="{StaticResource InputFieldStyle}"
-                     Margin="0,10,0,0"/>
+                <!-- Дата и время -->
+                <TextBlock Text="Дата и время отправления:" 
+                           Style="{StaticResource LabelStyle}" Margin="0,15,0,0"/>
+                <DatePicker SelectedDate="{Binding DepartureTime}"
+                            Style="{StaticResource DatePickerStyle}"/>
+                <ComboBox SelectedIndex="0" Margin="0,5,0,0">
+                    <ComboBoxItem Content="12:00"/>
+                    <ComboBoxItem Content="13:30"/>
+                    <ComboBoxItem Content="15:00"/>
+                </ComboBox>
 
-            <!-- Кнопка создания -->
-            <Button Content="Создать" 
-                    Command="{Binding CreateRideCommand}"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    Margin="0,20,0,0"/>
-            
-            
-            
-        </StackPanel>
+                <!-- Количество мест -->
+                <TextBlock Text="Доступно мест:" 
+                           Style="{StaticResource LabelStyle}" Margin="0,15,0,0"/>
+                <ComboBox SelectedValue="{Binding AvailableSeats}"
+                         Margin="0,5">
+                    <ComboBoxItem Content="1"/>
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="3"/>
+                    <ComboBoxItem Content="4"/>
+                </ComboBox>
+
+                <!-- Кнопка создания -->
+                <Button Content="Создать поездку"
+                        Command="{Binding CreateRideCommand}"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Margin="0,30,0,0"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

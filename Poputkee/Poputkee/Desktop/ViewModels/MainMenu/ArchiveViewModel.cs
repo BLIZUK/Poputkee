@@ -1,6 +1,7 @@
 ﻿// System namespaces
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -21,9 +22,9 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
 
         private readonly ITripService _tripService;
         private Trip _selectedTrip;
+        private bool _isLoading;
 
         #endregion
-
 
         #region Constructors
 
@@ -33,13 +34,14 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         /// <param name="tripService">Сервис для работы с поездками</param>
         public ArchiveViewModel(ITripService tripService)
         {
-            _tripService = tripService;
+            _tripService = tripService ??
+                throw new ArgumentNullException(nameof(tripService));
+
             InitializeCommands();
-            LoadCompletedTrips();
+            LoadCompletedTripsAsync();
         }
 
         #endregion
-
 
         #region Properties
 
@@ -57,9 +59,17 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
             set => SetProperty(ref _selectedTrip, value);
         }
 
+        /// <summary>
+        /// Флаг загрузки данных
+        /// </summary>
+        public bool IsLoading
+        {
+            get => _isLoading;
+            private set => SetProperty(ref _isLoading, value);
+        }
+
         #endregion
 
-        
         #region Commands
 
         /// <summary>
@@ -67,8 +77,12 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         /// </summary>
         public ICommand SaveRatingCommand { get; private set; }
 
-        #endregion
+        /// <summary>
+        /// Команда для обновления списка поездок
+        /// </summary>
+        public ICommand RefreshCommand { get; private set; }
 
+        #endregion
 
         #region Initialization
 
@@ -77,54 +91,83 @@ namespace Poputkee.Desktop.ViewModels.MainMenu
         /// </summary>
         private void InitializeCommands()
         {
-            SaveRatingCommand = new RelayCommand(_ =>
+            SaveRatingCommand = new RelayCommand(async _ =>
             {
-                try
-                {
-                    if (SelectedTrip == null) return;
-                    _tripService.UpdateTrip(SelectedTrip);
-                    Debug.WriteLine("Оценка сохранена!");
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine($"Ошибка: {ex.Message}");
-                }
+                await ExecuteSaveRatingAsync();
+            });
+
+            RefreshCommand = new RelayCommand(async _ =>
+            {
+                await LoadCompletedTripsAsync();
             });
         }
 
         #endregion
 
-
         #region Data Loading
 
         /// <summary>
-        /// Загрузка завершенных поездок из сервиса
+        /// Асинхронная загрузка завершенных поездок
         /// </summary>
-        private void LoadCompletedTrips()
+        private async Task LoadCompletedTripsAsync()
         {
-            var trips = _tripService.GetCompletedTrips();
-            foreach (var trip in trips)
+            try
             {
-                CompletedTrips.Add(trip);
-            }
+                IsLoading = true;
+                CompletedTrips.Clear();
 
-            // Альтернатива с использованием LINQ:
-            // _tripService.GetCompletedTrips().ForEach(CompletedTrips.Add);
+                // Асинхронная загрузка данных
+                var trips = await _tripService.GetCompletedTripsAsync();
+
+                foreach (var trip in trips)
+                {
+                    CompletedTrips.Add(trip);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Ошибка загрузки поездок: {ex.Message}");
+                MessageBox.Show("Не удалось загрузить список поездок",
+                                "Ошибка",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         #endregion
 
-
-        #region Helper Methods
+        #region Command Handlers
 
         /// <summary>
-        /// Сохранение оценки (дублирует функционал команды - требуется рефакторинг)
+        /// Сохранение оценки асинхронно
         /// </summary>
-        private void SaveRating()
+        private async Task ExecuteSaveRatingAsync()
         {
             if (SelectedTrip == null) return;
-            _tripService.UpdateTrip(SelectedTrip);
-            MessageBox.Show("Оценка сохранена!");  // Прямое использование MessageBox во ViewModel (можно вынести в отдельный сервис)
+
+            try
+            {
+                // Асинхронное обновление
+                await _tripService.UpdateTripAsync(SelectedTrip);
+
+                Debug.WriteLine("Оценка сохранена!");
+                MessageBox.Show("Оценка успешно сохранена!",
+                                "Успех",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Ошибка сохранения: {ex.Message}");
+                MessageBox.Show("Не удалось сохранить оценку",
+                                "Ошибка",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
         }
 
         #endregion

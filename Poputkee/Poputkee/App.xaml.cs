@@ -14,6 +14,7 @@ using Poputkee.Desktop.ViewModels.MainMenu;
 using Poputkee.Desktop.Views.MainMenu;
 using Poputkee.Core.Interfaces;
 using Poputkee.Desktop.ViewModels;
+using Poputkee.Infrastructure.Data;
 
 namespace Poputkee
 {
@@ -26,9 +27,6 @@ namespace Poputkee
 
         public static IServiceProvider ServiceProvider { get; private set; }
 
-        // Провайдер служб для Dependency Injection
-        private IServiceProvider _serviceProvider;
-
         #endregion
 
         #region Application Lifecycle
@@ -38,28 +36,44 @@ namespace Poputkee
         /// </summary>
         protected override void OnStartup(StartupEventArgs e)
         {
-
             base.OnStartup(e);
-            ConfigureServices();
-            var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+            ShutdownMode = ShutdownMode.OnLastWindowClose;
+
+            // Создаем конфигурацию БД
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+                .UseSqlite("Data Source=poputkee.db")
+                .Options;
+
+            // Создаем контекст БД
+            var context = new AppDbContext(options);
+            context.Database.EnsureCreated();
+
+            // Конфигурируем сервисы
+            ConfigureServices(context);
+
+            // Инициализируем главное окно
+            InitializeMainWindow();
+
             Debug.WriteLine("Application startup completed");
         }
 
         #endregion
-
 
         #region Configuration Methods
 
         /// <summary>
         /// Конфигурация системы Dependency Injection
         /// </summary>
-        private void ConfigureServices()
+        /// <param name="context">Контекст базы данных</param>
+        private void ConfigureServices(AppDbContext context)
         {
             var services = new ServiceCollection();
 
+            // Регистрируем контекст БД
+            services.AddSingleton(context);
+
             // Регистрация сервисов
-            services.AddSingleton<ITripService, MockTripService>();
+            services.AddScoped<ITripService, TripService>();
             services.AddSingleton<IAccountService, MockAccountService>();
             services.AddSingleton<INavigationService, NavigationService>();
 
@@ -74,8 +88,34 @@ namespace Poputkee
             // Регистрация MainWindow
             services.AddSingleton<MainWindow>();
 
-            _serviceProvider = services.BuildServiceProvider();
-            ServiceProvider = _serviceProvider;
+            ServiceProvider = services.BuildServiceProvider();
+        }
+
+        #endregion
+
+        #region Window Initialization
+
+        /// <summary>
+        /// Инициализация главного окна приложения
+        /// </summary>
+        private void InitializeMainWindow()
+        {
+            if (MainWindow == null)
+            {
+                CreateAndShowMainWindow();
+            }
+        }
+
+        /// <summary>
+        /// Создание и отображение главного окна
+        /// </summary>
+        private void CreateAndShowMainWindow()
+        {
+            // Используем ServiceProvider для получения MainWindow
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            mainWindow.DataContext = ServiceProvider.GetRequiredService<MainWindowViewModel>();
+            MainWindow = mainWindow;
+            mainWindow.Show();
         }
 
         #endregion

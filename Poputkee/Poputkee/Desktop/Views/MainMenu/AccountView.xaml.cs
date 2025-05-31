@@ -14,7 +14,6 @@ namespace Poputkee.Desktop.Views.MainMenu
         public AccountView()
         {
             InitializeComponent();
-            //DataContext = App.ServiceProvider.GetRequiredService<AccountViewModel>();
         }
     }
 }
