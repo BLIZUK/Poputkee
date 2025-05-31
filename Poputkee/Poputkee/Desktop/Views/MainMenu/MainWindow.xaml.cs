@@ -1,6 +1,5 @@
 ﻿using Poputkee.Core.Interfaces;
 using Poputkee.Core.Services;
-using Poputkee.Desktop.ViewModels;
 using Poputkee.Desktop.ViewModels.MainMenu;
 using System.Windows;
 

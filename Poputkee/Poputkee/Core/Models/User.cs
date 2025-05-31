@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 /*
 |
@@ -36,51 +37,34 @@ namespace Poputkee.Core.Models
     /// </summary>
     public class User
     {
-        #region Core Properties
-
-        /// <summary>
-        /// Уникальный идентификатор пользователя
-        /// </summary>
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        /// <summary>
-        /// Полное имя пользователя
-        /// </summary>
+        [Required]
+        [StringLength(100)]
         public string Name { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Адрес электронной почты (уникальный идентификатор)
-        /// </summary>
+        [Required]
+        [EmailAddress]
+        [StringLength(100)]
         public string Email { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Дата и время регистрации (в UTC)
-        /// </summary>
+        [Required]
+        public string PasswordHash { get; set; } = string.Empty;
+
+        public string Salt { get; set; } = string.Empty;
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        #endregion
+        public DateTime? LastLogin { get; set; }
 
-        #region Navigation Properties
+        public string AvatarUrl { get; set; } = "https://i.pravatar.cc/150?img=0";
 
-        /// <summary>
-        /// Коллекция бронирований пользователя
-        /// </summary>
-        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+        public string PhoneNumber { get; set; } = string.Empty;
 
-        #endregion
+        public bool IsDriver { get; set; } // Флаг, является ли пользователь водителем
 
-        #region Methods (Пример расширения функциональности)
-
-        /// <summary>
-        /// Валидация основных свойств пользователя
-        /// </summary>
-        public bool Validate()
-        {
-            return !string.IsNullOrWhiteSpace(Name)
-                && !string.IsNullOrWhiteSpace(Email)
-                && Email.Contains("@");
-        }
-
-        #endregion
+        // Навигационные свойства
+        public List<Trip> CreatedTrips { get; set; } = new List<Trip>();
+        public List<Booking> Bookings { get; set; } = new List<Booking>();
     }
 }

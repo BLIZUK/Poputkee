@@ -7,6 +7,7 @@
         Title="Poputkee" Height="600" Width="800" Background="#FFDBF1EC">
 
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>

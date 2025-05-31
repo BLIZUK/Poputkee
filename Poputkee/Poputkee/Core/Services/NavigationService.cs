@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Poputkee.Core.Interfaces;
 using Poputkee.Desktop.ViewModels;
-using Poputkee.Desktop.ViewModels.MainMenu;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Poputkee.Core.Services
 {
@@ -12,6 +10,9 @@ namespace Poputkee.Core.Services
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly Stack<BaseViewModel> _navigationStack = new();
+
+        public event Action CurrentViewChanged;
+        public BaseViewModel CurrentView { get; private set; }
 
         public NavigationService(IServiceProvider serviceProvider)
         {
@@ -22,10 +23,8 @@ namespace Poputkee.Core.Services
         {
             var viewModel = _serviceProvider.GetRequiredService<T>();
             _navigationStack.Push(viewModel);
-
-            var mainVm = _serviceProvider.GetRequiredService<MainWindowViewModel>();
-            Debug.WriteLine($">>> Переход к: {typeof(T).Name}");
-            mainVm.CurrentView = viewModel;
+            CurrentView = viewModel;
+            CurrentViewChanged?.Invoke();
         }
 
         public void GoBack()
@@ -33,9 +32,8 @@ namespace Poputkee.Core.Services
             if (_navigationStack.Count > 1)
             {
                 _navigationStack.Pop();
-                var previousVm = _navigationStack.Peek();
-                var mainVm = _serviceProvider.GetRequiredService<MainWindowViewModel>();
-                mainVm.CurrentView = previousVm;
+                CurrentView = _navigationStack.Peek();
+                CurrentViewChanged?.Invoke();
             }
         }
 

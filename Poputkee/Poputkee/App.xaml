@@ -7,7 +7,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:Poputkee.Desktop.ViewModels.MainMenu"
              xmlns:views="clr-namespace:Poputkee.Desktop.Views.MainMenu"
-             xmlns:local="clr-namespace:Poputkee.Core.Services">
+             xmlns:local="clr-namespace:Poputkee.Core.Services"
+             xmlns:authVm="clr-namespace:Poputkee.Desktop.ViewModels.Auth"
+             xmlns:authViews="clr-namespace:Poputkee.Desktop.Views.Auth"
+             xmlns:converters="clr-namespace:Poputkee.Core.Converters">
 
     <Application.Resources>
 
@@ -15,6 +18,17 @@
             Шаблоны DataTemplate для автоматического связывания ViewModel и View 
             Реализация концепции ViewModel-first navigation
         -->
+
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <!-- Шаблоны для аутентификации -->
+        <DataTemplate DataType="{x:Type authVm:LoginViewModel}">
+            <authViews:LoginView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type authVm:RegisterViewModel}">
+            <authViews:RegisterView/>
+        </DataTemplate>
 
         <!-- Шаблон для BookRideViewModel -->
         <DataTemplate DataType="{x:Type vm:BookRideViewModel}">
@@ -45,6 +59,15 @@
             Стили для элементов управления 
             Все стили имеют ключи для явного применения
         -->
+
+        <Style x:Key="PasswordFieldStyle" TargetType="PasswordBox">
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
 
         <!-- Стиль для кнопок навигации в сайдбаре -->
         <Style x:Key="NavButtonStyle" TargetType="Button">

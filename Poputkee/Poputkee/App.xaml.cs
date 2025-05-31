@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 // Application components
 using Poputkee.Core.Services;
 using Poputkee.Desktop.ViewModels.MainMenu;
+using Poputkee.Desktop.ViewModels.Auth;
 using Poputkee.Desktop.Views.MainMenu;
 using Poputkee.Core.Interfaces;
-using Poputkee.Desktop.ViewModels;
 using Poputkee.Infrastructure.Data;
 
 namespace Poputkee
@@ -74,10 +74,13 @@ namespace Poputkee
 
             // Регистрация сервисов
             services.AddScoped<ITripService, TripService>();
-            services.AddSingleton<IAccountService, MockAccountService>();
+            services.AddScoped<IAuthService, AuthService>(); // Новый сервис
             services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IAccountService, MockAccountService>();
 
             // Регистрация ViewModels
+            services.AddTransient<LoginViewModel>();
+            services.AddTransient<RegisterViewModel>();
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<BookRideViewModel>();
             services.AddTransient<CreateRideViewModel>();
