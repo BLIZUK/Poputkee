@@ -79,7 +79,7 @@ namespace Poputkee.Core.Models
             return !string.IsNullOrWhiteSpace(Name)
                 && !string.IsNullOrWhiteSpace(Email)
                 && Email.Contains("@");
-        }
+        } 
 
         #endregion
     }
